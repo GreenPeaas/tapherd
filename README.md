@@ -4,7 +4,7 @@
 
 TapHerd is a free, open-source connector that lets Codex, Claude, Cursor, or any MCP client control your Android phones and emulators. Your AI sees the screen, taps, types, opens apps, and copies media, on up to three devices for free.
 
-<img src="site/assets/loops/post-everywhere.webp" width="720" alt="Screen recording, sped up: one prompt posts a video from a Pixel emulator to YouTube Shorts, TikTok, and Instagram Reels, then deletes the copy from the phone.">
+<img src="https://tapherd.info/assets/loops/post-everywhere.webp" width="720" alt="Screen recording, sped up: one prompt posts a video from a Pixel emulator to YouTube Shorts, TikTok, and Instagram Reels, then deletes the copy from the phone.">
 
 *Real screen recording, sped up, account names blurred: one prompt posted a scheduled video from one Pixel emulator to three platforms on 2026-11-19.*
 
@@ -24,7 +24,7 @@ curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/ins
 irm https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.ps1 | iex
 ```
 
-The installer sets up [uv](https://docs.astral.sh/uv/) and TapHerd for your user, offers to install Android's `adb` tool, and runs `tapherd doctor`. It explains and asks before anything that needs `sudo`. [Read the macOS/Linux installer](scripts/install.sh) · [Read the Windows installer](scripts/install.ps1)
+The installer sets up [uv](https://docs.astral.sh/uv/) and TapHerd for your user, offers to install Android's `adb` tool, and runs `tapherd doctor`. It explains and asks before anything that needs `sudo`. [Read the macOS/Linux installer](https://github.com/GreenPeaas/tapherd/blob/main/scripts/install.sh) · [Read the Windows installer](https://github.com/GreenPeaas/tapherd/blob/main/scripts/install.ps1)
 
 Already have uv? Run `uv tool install tapherd`, then `tapherd doctor`. For the latest code from this repository, run `uv tool install git+https://github.com/GreenPeaas/tapherd` instead.
 
@@ -32,7 +32,7 @@ Already have uv? Run `uv tool install tapherd`, then `tapherd doctor`. For the l
 
 ## Your first AI-controlled tap
 
-1. **Connect your AI.** Print the settings for your client and paste them where TapHerd says. [Steps for each client](docs/CONNECT_YOUR_AI.md)
+1. **Connect your AI.** Print the settings for your client and paste them where TapHerd says. [Steps for each client](https://github.com/GreenPeaas/tapherd/blob/main/docs/CONNECT_YOUR_AI.md)
 
    ```sh
    tapherd config mcp --client claude-code     # or codex, claude-desktop, cursor
@@ -44,7 +44,7 @@ Already have uv? Run `uv tool install tapherd`, then `tapherd doctor`. For the l
 
    You should see **Network & internet** open on the device.
 
-New to this? Follow the [step-by-step guide](docs/GETTING_STARTED.md).
+New to this? Follow the [step-by-step guide](https://github.com/GreenPeaas/tapherd/blob/main/docs/GETTING_STARTED.md).
 
 ### Or try it in one command with Claude Code
 
@@ -74,7 +74,7 @@ Menu labels can vary by Android version or language. If Settings opens on a subp
 - **Mobile-only apps.** Use apps that have no web or API version.
 - **Your own analytics.** Read numbers from your own accounts' in-app dashboards.
 
-TapHerd only acts on devices you connect, through apps you're signed into. Its recipes only support posting to accounts you own. [Acceptable use](docs/ACCEPTABLE_USE.md)
+TapHerd only acts on devices you connect, through apps you're signed into. Its recipes only support posting to accounts you own. [Acceptable use](https://github.com/GreenPeaas/tapherd/blob/main/docs/ACCEPTABLE_USE.md)
 
 ## Free and Pro
 
@@ -92,19 +92,19 @@ TapHerd only acts on devices you connect, through apps you're signed into. Its r
 
 | Get started | Use it | Project |
 | --- | --- | --- |
-| [Step-by-step guide](docs/GETTING_STARTED.md) | [MCP tools](docs/TOOLS.md) | [Security and data flow](docs/SECURITY.md) |
-| [Setup on macOS](docs/SETUP_MAC.md) | [Recipes](docs/RECIPES.md) | [Acceptable use](docs/ACCEPTABLE_USE.md) |
-| [Setup on Windows (beta)](docs/SETUP_WINDOWS.md) | [Advanced MCP options](docs/MCP.md) | [Contributing](CONTRIBUTING.md) |
-| [Setup on Linux (beta)](docs/SETUP_LINUX.md) | [Architecture](docs/ARCHITECTURE.md) | [Changelog](CHANGELOG.md) |
-| [Connect your AI](docs/CONNECT_YOUR_AI.md) | [Troubleshooting](docs/TROUBLESHOOTING.md) | [License (MIT)](LICENSE) |
+| [Step-by-step guide](https://github.com/GreenPeaas/tapherd/blob/main/docs/GETTING_STARTED.md) | [MCP tools](https://github.com/GreenPeaas/tapherd/blob/main/docs/TOOLS.md) | [Security and data flow](https://github.com/GreenPeaas/tapherd/blob/main/docs/SECURITY.md) |
+| [Setup on macOS](https://github.com/GreenPeaas/tapherd/blob/main/docs/SETUP_MAC.md) | [Recipes](https://github.com/GreenPeaas/tapherd/blob/main/docs/RECIPES.md) | [Acceptable use](https://github.com/GreenPeaas/tapherd/blob/main/docs/ACCEPTABLE_USE.md) |
+| [Setup on Windows (beta)](https://github.com/GreenPeaas/tapherd/blob/main/docs/SETUP_WINDOWS.md) | [Advanced MCP options](https://github.com/GreenPeaas/tapherd/blob/main/docs/MCP.md) | [Contributing](https://github.com/GreenPeaas/tapherd/blob/main/CONTRIBUTING.md) |
+| [Setup on Linux (beta)](https://github.com/GreenPeaas/tapherd/blob/main/docs/SETUP_LINUX.md) | [Architecture](https://github.com/GreenPeaas/tapherd/blob/main/docs/ARCHITECTURE.md) | [Changelog](https://github.com/GreenPeaas/tapherd/blob/main/CHANGELOG.md) |
+| [Connect your AI](https://github.com/GreenPeaas/tapherd/blob/main/docs/CONNECT_YOUR_AI.md) | [Troubleshooting](https://github.com/GreenPeaas/tapherd/blob/main/docs/TROUBLESHOOTING.md) | [License (MIT)](https://github.com/GreenPeaas/tapherd/blob/main/LICENSE) |
 
 ## Privacy
 
-The connector runs entirely on your computer and has no telemetry. Screenshots and the optional action log stay local. TapHerd never asks for or stores passwords; you sign in to apps on the device yourself. [Security and data flow](docs/SECURITY.md) · [Website privacy](https://tapherd.info/privacy.html)
+The connector runs entirely on your computer and has no telemetry. Screenshots and the optional action log stay local. TapHerd never asks for or stores passwords; you sign in to apps on the device yourself. [Security and data flow](https://github.com/GreenPeaas/tapherd/blob/main/docs/SECURITY.md) · [Website privacy](https://tapherd.info/privacy.html)
 
 ## Help
 
-Open an [issue](https://github.com/GreenPeaas/tapherd/issues/new/choose) with the output of `tapherd doctor`, or email support@tapherd.info. Report security problems privately: [how](docs/SECURITY.md#report-a-vulnerability).
+Open an [issue](https://github.com/GreenPeaas/tapherd/issues/new/choose) with the output of `tapherd doctor`, or email support@tapherd.info. Report security problems privately: [how](https://github.com/GreenPeaas/tapherd/blob/main/docs/SECURITY.md#report-a-vulnerability).
 
 ---
 
