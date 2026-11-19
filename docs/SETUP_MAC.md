@@ -5,7 +5,7 @@
 Open **Terminal** and run the installer. It sets up uv and TapHerd for your user, offers to install `adb` with Homebrew, and runs `tapherd doctor`.
 
 ```sh
-curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh
+curl -LsSf https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.sh | sh
 ```
 
 Already have uv? Run `uv tool install tapherd` instead. Working on TapHerd's own code? See [Contributing](../CONTRIBUTING.md).

@@ -35,10 +35,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/GreenPeaas/tapherd"
-Documentation = "https://github.com/GreenPeaas/tapherd#readme"
-Issues = "https://github.com/GreenPeaas/tapherd/issues"
-Changelog = "https://github.com/GreenPeaas/tapherd/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/asuopys/tapherd"
+Documentation = "https://github.com/asuopys/tapherd#readme"
+Issues = "https://github.com/asuopys/tapherd/issues"
+Changelog = "https://github.com/asuopys/tapherd/blob/main/CHANGELOG.md"
 
 [project.scripts]
 tapherd = "tapherd.cli:app"

@@ -97,7 +97,7 @@
         <a href="./#how">How it works</a>
         <a href="docs.html" aria-current="page">Install guide</a>
         <a href="./#pro">Pro</a>
-        <a href="https://github.com/GreenPeaas/tapherd">GitHub</a>
+        <a href="https://github.com/asuopys/tapherd">GitHub</a>
       </nav>
       <a class="btn small" href="./#waitlist">Pro waitlist</a>
     </div>
@@ -256,7 +256,7 @@ Start-Process "$sdk\emulator\emulator.exe" "-avd TapHerd_Pixel_2"</code></pre></
               <li>Connect it with a data cable (some cables only charge), unlock it, and accept <strong>Allow USB debugging</strong>. Tick <strong>Always allow</strong>.</li>
             </ol>
             <p data-os="windows" hidden class="tip">Most phones need their maker's USB driver on Windows. Pixel phones use the Google USB Driver from Android Studio's SDK Manager.</p>
-            <p data-os="linux" hidden class="tip">If <code>adb</code> says permission denied, add a udev rule. <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/SETUP_LINUX.md#let-adb-reach-a-usb-phone">How</a></p>
+            <p data-os="linux" hidden class="tip">If <code>adb</code> says permission denied, add a udev rule. <a class="link" href="https://github.com/asuopys/tapherd/blob/main/docs/SETUP_LINUX.md#let-adb-reach-a-usb-phone">How</a></p>
           </details>
         </section>
 
@@ -265,15 +265,15 @@ Start-Process "$sdk\emulator\emulator.exe" "-avd TapHerd_Pixel_2"</code></pre></
           <div class="step-head reveal"><span class="step-num">2</span><h2 id="install-title">Install TapHerd</h2><span class="time">1–2 min</span></div>
           <div data-os="mac">
             <p>Open <strong>Terminal</strong> (press <kbd>⌘</kbd> <kbd>Space</kbd>, type Terminal) and paste:</p>
-            <div class="code"><pre><code>curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh</code></pre></div>
+            <div class="code"><pre><code>curl -LsSf https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.sh | sh</code></pre></div>
           </div>
           <div data-os="windows" hidden>
             <p>Open <strong>PowerShell</strong> from the Start menu. You don't need administrator rights. Paste:</p>
-            <div class="code"><pre><code>irm https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.ps1 | iex</code></pre></div>
+            <div class="code"><pre><code>irm https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.ps1 | iex</code></pre></div>
           </div>
           <div data-os="linux" hidden>
             <p>Open a terminal and paste:</p>
-            <div class="code"><pre><code>curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh</code></pre></div>
+            <div class="code"><pre><code>curl -LsSf https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.sh | sh</code></pre></div>
           </div>
           <p>The installer:</p>
           <ul class="list">
@@ -358,7 +358,7 @@ Ready. Next, connect your AI: tapherd config mcp --client claude-code (or codex,
               <li>Reload Cursor and check TapHerd is enabled in its MCP settings.</li>
             </ol>
           </div>
-          <p class="tip">Always paste what <strong>your</strong> <code>tapherd config mcp</code> prints. It points at the Python and <code>adb</code> on your computer. <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/CONNECT_YOUR_AI.md">All details</a></p>
+          <p class="tip">Always paste what <strong>your</strong> <code>tapherd config mcp</code> prints. It points at the Python and <code>adb</code> on your computer. <a class="link" href="https://github.com/asuopys/tapherd/blob/main/docs/CONNECT_YOUR_AI.md">All details</a></p>
         </section>
 
         <!-- 5 -->
@@ -367,7 +367,7 @@ Ready. Next, connect your AI: tapherd config mcp --client claude-code (or codex,
           <p>Ask your AI:</p>
           <div class="code"><pre class="wrap-lines"><code>Use TapHerd to list my devices. On the first one, open Settings, read the screen, tap Network &amp; internet, and tell me what opened.</code></pre></div>
           <p class="expect">Settings opens on the device, then <strong>Network &amp; internet</strong>. Your AI tells you what it sees.</p>
-          <p>That's it. Your AI can now read the screen, tap, swipe, type, and open apps on your Android devices. <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/TOOLS.md">See all 15 tools</a></p>
+          <p>That's it. Your AI can now read the screen, tap, swipe, type, and open apps on your Android devices. <a class="link" href="https://github.com/asuopys/tapherd/blob/main/docs/TOOLS.md">See all 15 tools</a></p>
         </section>
 
         <!-- 6 -->
@@ -380,7 +380,7 @@ Ready. Next, connect your AI: tapherd config mcp --client claude-code (or codex,
               <div class="code"><pre class="wrap-lines"><code>Using TapHerd, copy launch.mp4 to my phone and post it to TikTok, Instagram Reels, and YouTube Shorts. Write a caption and tags for each. Keep the Short private. Delete the copy from the phone when you're done.</code></pre></div></li>
             <li>Watch it work. It uses <code>push_media</code> to copy the file, <code>prepare_app</code> to allow photo access and turn off camera and microphone prompts, taps through each app, and finishes with <code>remove_media</code>.</li>
           </ol>
-          <p class="tip">Start with private or "Only you" visibility while you try it. App screens change often, so your AI checks each screen before tapping. Only post to accounts you own. <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/ACCEPTABLE_USE.md">Acceptable use</a></p>
+          <p class="tip">Start with private or "Only you" visibility while you try it. App screens change often, so your AI checks each screen before tapping. Only post to accounts you own. <a class="link" href="https://github.com/asuopys/tapherd/blob/main/docs/ACCEPTABLE_USE.md">Acceptable use</a></p>
         </section>
 
         <!-- 7 -->
@@ -408,7 +408,7 @@ tapherd use emulator-5556</code></pre></div>
             <div class="card"><h3>My AI doesn't see TapHerd</h3><p>Check the file is valid JSON or TOML with no trailing commas, and fully restart the app. Claude Desktop must be quit, not just closed.</p></div>
             <div class="card"><h3><code>tapherd</code>: command not found</h3><p>Open a new terminal. Still missing? Run <code>uv tool update-shell</code> and open another one.</p></div>
           </div>
-          <p>More fixes are in <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/TROUBLESHOOTING.md">Troubleshooting</a>. Still stuck? <a class="link" href="https://github.com/GreenPeaas/tapherd/issues/new/choose">Open an issue</a> with the output of <code>tapherd doctor</code>, and remove any account names first.</p>
+          <p>More fixes are in <a class="link" href="https://github.com/asuopys/tapherd/blob/main/docs/TROUBLESHOOTING.md">Troubleshooting</a>. Still stuck? <a class="link" href="https://github.com/asuopys/tapherd/issues/new/choose">Open an issue</a> with the output of <code>tapherd doctor</code>, and remove any account names first.</p>
         </section>
       </div>
     </div>
@@ -420,8 +420,8 @@ tapherd use emulator-5556</code></pre></div>
         <a class="brand" href="./" aria-label="TapHerd home"><span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>TapHerd</a>
         <nav class="footer-links" aria-label="Footer">
           <a class="link" href="./">Home</a>
-          <a class="link" href="https://github.com/GreenPeaas/tapherd">GitHub</a>
-          <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/ACCEPTABLE_USE.md">Acceptable use</a>
+          <a class="link" href="https://github.com/asuopys/tapherd">GitHub</a>
+          <a class="link" href="https://github.com/asuopys/tapherd/blob/main/docs/ACCEPTABLE_USE.md">Acceptable use</a>
           <a class="link" href="privacy.html">Privacy</a>
           <a class="link" href="./#waitlist">Pro waitlist</a>
         </nav>
@@ -454,7 +454,7 @@ tapherd use emulator-5556</code></pre></div>
     const SCRIPT = [
       ["p", "$ ", "adb devices -l"],
       ["ok", "", "emulator-5554  device  product:sdk_gphone64_arm64"],
-      ["p", "$ ", "curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh"],
+      ["p", "$ ", "curl -LsSf https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.sh | sh"],
       ["o", "", "==> Checking for uv … installed\n==> Checking for adb … installed\n==> Installing TapHerd … done"],
       ["p", "$ ", "tapherd config mcp --client claude-code > .mcp.json"],
       ["p", "> ", "Open Settings on my phone and tap Network & internet."],

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Install TapHerd on macOS or Linux.
 #
-#   curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh
+#   curl -LsSf https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.sh | sh
 #
 # What it does, in order:
 #   1. Installs uv (Python package manager) for your user if it's missing.
@@ -19,8 +19,8 @@
 
 set -eu
 
-REPO_URL="git+https://github.com/GreenPeaas/tapherd"
-DOCS_URL="https://github.com/GreenPeaas/tapherd#readme"
+REPO_URL="git+https://github.com/asuopys/tapherd"
+DOCS_URL="https://github.com/asuopys/tapherd#readme"
 
 say() { printf '%s\n' "$*"; }
 step() { printf '\n==> %s\n' "$*"; }

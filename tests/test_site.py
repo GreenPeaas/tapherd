@@ -3,7 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
-REPO = "https://github.com/GreenPeaas/tapherd"
+REPO = "https://github.com/asuopys/tapherd"
 
 
 def _page() -> str:

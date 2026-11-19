@@ -12,7 +12,7 @@ Thanks for helping. TapHerd is a small project, so short, focused pull requests 
 ## Set up
 
 ```sh
-git clone https://github.com/GreenPeaas/tapherd && cd tapherd
+git clone https://github.com/asuopys/tapherd && cd tapherd
 uv sync --locked
 uv run pytest
 ```

@@ -17,5 +17,5 @@ body:
     attributes:
       label: Acceptable use
       options:
-        - label: This request fits the [acceptable use policy](https://github.com/GreenPeaas/tapherd/blob/main/docs/ACCEPTABLE_USE.md). TapHerd doesn't automate engagement, account creation, scraping, CAPTCHAs, or detection evasion.
+        - label: This request fits the [acceptable use policy](https://github.com/asuopys/tapherd/blob/main/docs/ACCEPTABLE_USE.md). TapHerd doesn't automate engagement, account creation, scraping, CAPTCHAs, or detection evasion.
           required: true

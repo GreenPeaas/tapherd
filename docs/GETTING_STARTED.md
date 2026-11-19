@@ -32,13 +32,13 @@ To post to apps such as TikTok, Instagram, or YouTube, install them on the devic
 macOS and Linux, in Terminal:
 
 ```sh
-curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh
+curl -LsSf https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.sh | sh
 ```
 
 Windows, in PowerShell (no administrator rights needed):
 
 ```powershell
-irm https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.ps1 | iex
 ```
 
 The installer sets up uv and TapHerd for your user, checks for `adb` and asks before installing it, then runs `tapherd doctor`. Open a new terminal window afterwards.

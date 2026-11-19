@@ -1,13 +1,13 @@
 # Set up TapHerd on Windows (beta)
 
-TapHerd's automated tests pass on Windows 10 and 11 with Python 3.11–3.13. Real devices haven't been tried on Windows yet, so treat it as beta and [report anything that breaks](https://github.com/GreenPeaas/tapherd/issues/new/choose).
+TapHerd's automated tests pass on Windows 10 and 11 with Python 3.11–3.13. Real devices haven't been tried on Windows yet, so treat it as beta and [report anything that breaks](https://github.com/asuopys/tapherd/issues/new/choose).
 
 ## Fastest path: the installer
 
 Open **PowerShell** (not as administrator) and run:
 
 ```powershell
-irm https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.ps1 | iex
 ```
 
 The script installs uv and Android Platform-Tools for your user, then TapHerd, and runs `tapherd doctor`. Before it installs anything, it says what it will do. It never needs administrator rights. To read it first, open [scripts/install.ps1](../scripts/install.ps1).

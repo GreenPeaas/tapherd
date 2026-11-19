@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Security vulnerability
-    url: https://github.com/GreenPeaas/tapherd/security/advisories/new
+    url: https://github.com/asuopys/tapherd/security/advisories/new
     about: Report security issues privately, not in a public issue.
   - name: Question or setup help
-    url: https://github.com/GreenPeaas/tapherd/blob/main/docs/TROUBLESHOOTING.md
+    url: https://github.com/asuopys/tapherd/blob/main/docs/TROUBLESHOOTING.md
     about: Check the troubleshooting guide first.

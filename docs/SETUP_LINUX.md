@@ -1,11 +1,11 @@
 # Set up TapHerd on Linux (beta)
 
-TapHerd's automated tests pass on Ubuntu with Python 3.11–3.13. Real devices haven't been tried on Linux yet, so treat it as beta and [report anything that breaks](https://github.com/GreenPeaas/tapherd/issues/new/choose).
+TapHerd's automated tests pass on Ubuntu with Python 3.11–3.13. Real devices haven't been tried on Linux yet, so treat it as beta and [report anything that breaks](https://github.com/asuopys/tapherd/issues/new/choose).
 
 ## Fastest path: the installer
 
 ```sh
-curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh
+curl -LsSf https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.sh | sh
 ```
 
 The script installs uv for your user, then TapHerd, and runs `tapherd doctor`. If `adb` is missing, it prints the package-manager command to run. It asks before running anything with `sudo` and explains why. To read it first, open [scripts/install.sh](../scripts/install.sh).

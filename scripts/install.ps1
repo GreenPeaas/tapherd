@@ -1,6 +1,6 @@
 # Install TapHerd on Windows (beta).
 #
-#   irm https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/asuopys/tapherd/main/scripts/install.ps1 | iex
 #
 # What it does, in order:
 #   1. Installs uv (Python package manager) for your user if it's missing.
@@ -16,8 +16,8 @@
 #   TAPHERD_INSTALL_YES=1   Answer yes to every question (for scripts and CI).
 
 $ErrorActionPreference = "Stop"
-$RepoUrl = "git+https://github.com/GreenPeaas/tapherd"
-$DocsUrl = "https://github.com/GreenPeaas/tapherd#readme"
+$RepoUrl = "git+https://github.com/asuopys/tapherd"
+$DocsUrl = "https://github.com/asuopys/tapherd#readme"
 
 function Step($Text) { Write-Host ""; Write-Host "==> $Text" }
 function Ask($Question) {

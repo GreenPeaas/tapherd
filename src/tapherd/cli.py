@@ -37,7 +37,7 @@ config_app = typer.Typer(no_args_is_help=True)
 app.add_typer(config_app, name="config", help="Print client configuration.")
 
 
-DOCS_URL = "https://github.com/GreenPeaas/tapherd#readme"
+DOCS_URL = "https://github.com/asuopys/tapherd#readme"
 
 
 def _version() -> str:

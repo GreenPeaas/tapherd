@@ -20,7 +20,7 @@ The Pro notice stores its last display time in the local device registry. `taphe
 
 Please report security problems privately, not in a public issue.
 
-- **Preferred:** use GitHub's private vulnerability reporting. On the repository, open **Security → Report a vulnerability** ([direct link](https://github.com/GreenPeaas/tapherd/security/advisories/new)).
+- **Preferred:** use GitHub's private vulnerability reporting. On the repository, open **Security → Report a vulnerability** ([direct link](https://github.com/asuopys/tapherd/security/advisories/new)).
 - **Email:** security@tapherd.info
 
 Include what's affected, how to reproduce it, and the output of `tapherd --version`. You should get a reply within 3 days. Please give us a reasonable time to ship a fix before you share details publicly.
