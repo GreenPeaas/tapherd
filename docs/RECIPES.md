@@ -1,6 +1,6 @@
 # Write and run posting recipes
 
-TapHerd includes `youtube_shorts_post` as an unverified sample. The source is in [recipes/youtube_shorts_post.yaml](../recipes/youtube_shorts_post.yaml). It defaults to private visibility. Use your own test account and a video you own when testing an actual upload. YouTube's Android workflow needs an audience setting as well as a title and visibility. [YouTube Shorts upload guide](https://support.google.com/youtube/answer/12779649?hl=en&co=GENIE.Platform%3DAndroid)
+TapHerd includes `youtube_shorts_post` as an unverified sample. The source is in [src/tapherd/recipes/bundled/youtube_shorts_post.yaml](../src/tapherd/recipes/bundled/youtube_shorts_post.yaml). It defaults to private visibility. Use your own test account and a video you own when testing an actual upload. YouTube's Android workflow needs an audience setting as well as a title and visibility. [YouTube Shorts upload guide](https://support.google.com/youtube/answer/12779649?hl=en&co=GENIE.Platform%3DAndroid)
 
 ## Run the Shorts sample
 
