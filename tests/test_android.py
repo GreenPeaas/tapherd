@@ -357,11 +357,13 @@ def test_inspect_filters_empty_nodes_caps_output_and_cleans_up_bad_dumps(
 def test_tap_swipe_and_key_handle_both_action_forms(adb: FakeAdb) -> None:
     serial = "emulator-5554"
     device = adb.device(serial)
-    run_cli("tap", serial, "5", "8")
-    run_cli("tap", serial, "--text", "Network & internet")
-    run_cli("swipe", serial, "--direction", "up")
+    assert "Tapped (5, 8) on" in run_cli("tap", serial, "5", "8")
+    assert 'Tapped "Network & internet" at (' in run_cli(
+        "tap", serial, "--text", "Network & internet"
+    )
+    assert "Swiped up on" in run_cli("swipe", serial, "--direction", "up")
     run_cli("swipe", serial, "1", "2", "3", "4", "--duration-ms", "200")
-    run_cli("press-key", serial, "recents")
+    assert "Pressed recents on" in run_cli("press-key", serial, "recents")
     assert device.commands[0] == ("input", "tap", "5", "8")
     assert device.commands[-4:] == [
         ("input", "tap", "110", "130"),
@@ -612,6 +614,11 @@ def test_mcp_tools_share_actions_and_return_a_structured_screenshot(
                     result.structuredContent is not None
                     and result.structuredContent["ok"]
                 )
+                if name == "tap":
+                    assert (
+                        result.structuredContent["x"],
+                        result.structuredContent["y"],
+                    ) == (110, 130)
             assert result.structuredContent["device_path"].startswith(
                 "/sdcard/DCIM/TapHerd/clip-"
             )

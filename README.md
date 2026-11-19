@@ -42,13 +42,15 @@ Already have uv? Run `uv tool install tapherd`, then `tapherd doctor`. For the l
 
    > Use TapHerd to list my devices. On the first one, open Settings, read the screen, tap **Network & internet**, and tell me what opened.
 
-   You should see **Network & internet** open on the device.
+   You should see **Network & internet** open on the device. If Settings reopens on a page from earlier, add "go back to the main Settings screen first" to the prompt.
+
+   Your AI reads the screen with TapHerd's `read_screen` tool. On the command line, the same thing is `tapherd inspect <serial>`. [All tools](https://github.com/asuopys/tapherd/blob/main/docs/TOOLS.md)
 
 New to this? Follow the [step-by-step guide](https://github.com/asuopys/tapherd/blob/main/docs/GETTING_STARTED.md).
 
 ### Or try it in one command with Claude Code
 
-This uses a temporary MCP config and only the four tools it needs. `tapherd config mcp` also prints a reminder about where to save the config; the command below already saves it for you, so you can ignore that line.
+This uses a temporary MCP config and only the five tools it needs, then deletes the config. `tapherd config mcp` also prints a reminder about where to save the config; the command below already saves it for you, so you can ignore that line.
 
 ```sh
 TAPHERD_FIRST_TAP_DIR=$(mktemp -d)
@@ -56,15 +58,16 @@ tapherd config mcp --client claude-code > "$TAPHERD_FIRST_TAP_DIR/mcp.json"
 (
   cd "$TAPHERD_FIRST_TAP_DIR" || exit
   claude --print \
-    'Use only TapHerd MCP. List devices. On the first active device, open com.android.settings, use read_screen to find Network & internet, tap that row, and tell me what opened.' \
+    'Use only TapHerd MCP. List devices. On the first active device, open com.android.settings. If it is not on the main Settings list, press back until it is. Use read_screen to find Network & internet, tap that row, and tell me what opened.' \
     --mcp-config "$TAPHERD_FIRST_TAP_DIR/mcp.json" --strict-mcp-config \
     --no-session-persistence --tools '' \
     --allowedTools mcp__tapherd__list_devices mcp__tapherd__open_app \
-      mcp__tapherd__read_screen mcp__tapherd__tap
+      mcp__tapherd__read_screen mcp__tapherd__tap mcp__tapherd__press_key
 )
+rm -rf "$TAPHERD_FIRST_TAP_DIR"
 ```
 
-Menu labels can vary by Android version or language. If Settings opens on a subpage, go back to its home screen and try again.
+Menu labels can vary by Android version or language.
 
 ## What it's for
 

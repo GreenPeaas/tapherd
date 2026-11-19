@@ -99,7 +99,7 @@ class AndroidActions:
         y: int | None = None,
         *,
         selector: TapSelector | None = None,
-    ) -> None:
+    ) -> tuple[int, int]:
         if selector is not None and x is None and y is None:
             x, y = selector.coordinates(self.device)
         elif selector is not None or x is None or y is None:
@@ -109,6 +109,7 @@ class AndroidActions:
                 "Choose non-negative tap coordinates from the device screen."
             )
         self.device.shell("input", "tap", str(x), str(y))
+        return x, y
 
     def swipe(
         self,

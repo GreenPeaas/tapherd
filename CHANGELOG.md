@@ -4,6 +4,10 @@ All notable changes are listed here. TapHerd follows [Semantic Versioning](https
 
 ## [Unreleased]
 
+### Changed
+
+- `tap`, `swipe`, `type-text`, and `press-key` print a one-line confirmation. The `tap` MCP tool returns the coordinates it tapped.
+
 ## [0.1.1] - 2026-11-19
 
 ### Changed

@@ -63,10 +63,10 @@ Returns up to 150 on-screen elements. Empty, non-clickable elements are dropped.
 | `x`, `y` | integers, optional | Native pixel coordinates |
 | `selector` | object, optional | One of `{"text": …}`, `{"resource_id": …}`, or `{"content_desc": …}`, matching exactly |
 
-Give either coordinates or a selector. A selector that matches more than one element is refused, so be more specific.
+Give either coordinates or a selector. A selector that matches more than one element is refused, so be more specific. The reply includes the coordinates that were tapped. On the command line, use `tapherd tap <serial> --text "…"` or `tapherd tap <serial> <x> <y>`.
 
 ```json
-{"ok": true, "serial": "emulator-5554"}
+{"ok": true, "serial": "emulator-5554", "x": 540, "y": 893}
 ```
 
 ### `swipe`

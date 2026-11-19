@@ -379,7 +379,16 @@ def tap(
             if any(value is not None for value in (text, resource_id, content_desc))
             else None
         )
-        AndroidActions(device).tap(x, y, selector=chosen)
+        tapped_x, tapped_y = AndroidActions(device).tap(x, y, selector=chosen)
+    target = next(
+        (f'"{value}"' for value in (text, resource_id, content_desc) if value), None
+    )
+    where = (
+        f"{target} at ({tapped_x}, {tapped_y})"
+        if target
+        else f"({tapped_x}, {tapped_y})"
+    )
+    typer.echo(f"Tapped {where} on {serial}.")
 
 
 @app.command()
@@ -400,6 +409,9 @@ def swipe(
         AndroidActions(device).swipe(
             (x1, y1, x2, y2), direction=direction, duration_ms=duration_ms
         )
+    typer.echo(
+        f"Swiped {direction.value if direction else 'between the points'} on {serial}."
+    )
 
 
 @app.command()
@@ -407,6 +419,7 @@ def type_text(serial: str, text: str) -> None:
     """Type into the focused Android field."""
     with _target(serial, "type_text") as device:
         AndroidActions(device).type_text(text)
+    typer.echo(f"Typed {len(text)} characters on {serial}.")
 
 
 @app.command()
@@ -414,6 +427,7 @@ def press_key(serial: str, key: Key) -> None:
     """Send back, home, enter, recents, or delete."""
     with _target(serial, "press_key") as device:
         AndroidActions(device).press_key(key)
+    typer.echo(f"Pressed {key.value} on {serial}.")
 
 
 @app.command()

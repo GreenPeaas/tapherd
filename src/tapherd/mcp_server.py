@@ -170,12 +170,12 @@ def create_server(registry: DeviceRegistry) -> TapHerdMCP:
         selector: TapSelector | None = None,
     ) -> CallToolResult:
         """Tap native pixel coordinates, or match one exact text, resource_id, or content_desc selector."""
-        await on_device(
+        tapped_x, tapped_y = await on_device(
             serial,
             "tap",
             lambda device: AndroidActions(device).tap(x, y, selector=selector),
         )
-        return _reply({"serial": serial})
+        return _reply({"serial": serial, "x": tapped_x, "y": tapped_y})
 
     @server.tool()
     async def swipe(
