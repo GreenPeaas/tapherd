@@ -494,7 +494,7 @@
     }
 
     // Waitlist signups go to a Supabase table once its URL and publishable key are set.
-    // The same email rules are enforced by the database (supabase/migrations).
+    // The database also checks whether the email domain has mail routing.
     const EMAIL = /^[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$/;
     const validEmail = (value) =>
       value.length >= 6 && value.length <= 254 && EMAIL.test(value) &&
@@ -567,7 +567,9 @@
         if (response.ok || response.status === 409) {
           joined();
         } else if (response.status === 400) {
-          setStatus("That email address doesn't look valid. Check it and try again.", "error");
+          emailInput.setAttribute("aria-invalid", "true");
+          setStatus("Use an email address with a domain that can receive mail.", "error");
+          emailInput.focus();
         } else {
           setStatus("Signup isn't working right now. Please try again in a few minutes.", "error");
         }

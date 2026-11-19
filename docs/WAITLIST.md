@@ -6,15 +6,16 @@ The waitlist form on [tapherd.info](https://tapherd.info/#waitlist) saves signup
 
 ## What counts as a valid email
 
-The page and the database apply the same rules, so a bad address is rejected even if someone skips the page.
+The page and database check the address format. The database also checks DNS before saving a new signup.
 
 - Spaces are trimmed and the address is lowercased.
 - 6 to 254 characters, one `@`, and a domain with a dot and a top-level domain of at least two letters.
 - No leading dot, no `..`, and no dot right before `@`.
+- The domain must exist and publish mail routing records or an address record for SMTP fallback. Domains that explicitly decline mail are rejected. The DNS resolver receives only the domain.
 - Each address is stored once. A repeat signup shows the same thank-you message, so the page never reveals who is on the list.
 - A hidden field catches simple bots. Their submissions are thanked but never sent.
 
-These checks confirm an address is well formed. They don't prove the person owns it. That would need a confirmation email, which needs an email-sending service.
+Mailbox ownership requires a confirmation email.
 
 ## Set up Supabase
 
@@ -26,7 +27,7 @@ These checks confirm an address is well formed. They don't prove the person owns
    supabase db push
    ```
 
-   This applies [the waitlist migration](../supabase/migrations/20261119000000_waitlist.sql). Anonymous visitors can only add rows. They can't read, change, or delete the list.
+   This applies the [table migration](../supabase/migrations/20261119000000_waitlist.sql) and the [domain check](../supabase/migrations/20261119000100_waitlist_email_domain.sql). Anonymous visitors can only add rows. They can't read, change, or delete the list.
 3. In **Project Settings → API Keys**, copy the **Project URL** and the **publishable key** (`sb_publishable_…`). The legacy `anon` key also works. Never use the `secret` or `service_role` key on the page.
 4. In `site/index.html`, fill in the signup form's two attributes.
 
