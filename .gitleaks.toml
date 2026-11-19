@@ -1,0 +1,9 @@
+# Extend gitleaks' default rules.
+[extend]
+useDefault = true
+
+# Supabase publishable keys are public by design: they ship in the website and
+# can only insert waitlist rows (row level security blocks every other action).
+[[allowlists]]
+description = "Supabase publishable key on the waitlist page"
+regexes = ['''sb_publishable_[A-Za-z0-9_-]+''']

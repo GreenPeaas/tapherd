@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TapHerd — Your AI can now use Android apps</title>
+  <meta name="description" content="Free, open-source MCP connector that lets Codex, Claude, or Cursor control your Android phones and emulators. Post to TikTok, Reels and Shorts in one prompt. Free for up to 3 devices.">
+  <meta name="theme-color" content="#f3efe6">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%2317140f%22/%3E%3Crect x=%226%22 y=%229%22 width=%225%22 height=%2214%22 rx=%221.5%22 fill=%22none%22 stroke=%22%23f0773f%22 stroke-width=%222%22/%3E%3Crect x=%2213.5%22 y=%227%22 width=%225%22 height=%2218%22 rx=%221.5%22 fill=%22%23f0773f%22/%3E%3Crect x=%2221%22 y=%229%22 width=%225%22 height=%2214%22 rx=%221.5%22 fill=%22none%22 stroke=%22%23f0773f%22 stroke-width=%222%22/%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TapHerd">
+  <meta property="og:title" content="TapHerd — Your AI can now use Android apps">
+  <meta property="og:description" content="Control your phones and emulators from Codex, Claude, or Cursor. Free and open source for up to 3 devices.">
+  <meta property="og:url" content="https://tapherd.info/">
+  <meta property="og:image" content="https://tapherd.info/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TapHerd: Your AI can now use Android apps. Three phones showing finished post screens.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TapHerd — Your AI can now use Android apps">
+  <meta name="twitter:description" content="Control your phones and emulators from Codex, Claude, or Cursor. Free and open source for up to 3 devices.">
+  <meta name="twitter:image" content="https://tapherd.info/assets/og-image.jpg">
+  <!-- Cookieless Cloudflare Web Analytics. Loads only when a token is set here. See privacy.html. -->
+  <meta name="tapherd-analytics-token" content="473c99589e29480c9ef3950345945847">
+  <link rel="preload" href="assets/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/pro-demo.css">
+  <style>
+    /* Hero */
+    .hero { padding-block: clamp(3.5rem, 8vw, 6.5rem) 0; }
+    .hero h1 { max-width: 13ch; }
+    .hero-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); align-items: end; margin-top: clamp(2rem, 4vw, 3.25rem); }
+    .hero .lede { margin: 0; }
+    .install-box { padding: 1.1rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--card); }
+    .install-box .tabs { margin-bottom: .2rem; }
+    .install-box .code { margin-top: .7rem; }
+    .install-links { display: flex; flex-wrap: wrap; gap: .4rem 1.3rem; margin-top: .9rem; font-size: .95rem; }
+    .reel { margin: clamp(3rem, 7vw, 5rem) 0 0; }
+    .reel-frame { position: relative; border-radius: 1.2rem; overflow: hidden; background: var(--paper-2); border: 1px solid var(--line); transform: scale(calc(.92 + var(--p, 1) * .08)); transform-origin: 50% 0; transition: transform .1s linear; box-shadow: 0 2.5rem 5rem -2rem #3a2a1a55; }
+    .reel-frame img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+    .reel figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; margin-top: 1rem; font-size: .92rem; color: var(--ink-3); }
+    .reel figcaption b { color: var(--ink); font-weight: 600; }
+    .reel details { max-width: 44rem; }
+    .reel summary { cursor: pointer; font-weight: 600; color: var(--ink-2); }
+    .reel ol { margin: .6rem 0 0; padding-left: 1.2rem; color: var(--ink-2); }
+
+    .clients { overflow: hidden; border-block: 1px solid var(--line); margin-top: clamp(3rem, 6vw, 4.5rem); }
+    .marquee { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+    .clients:hover .marquee { animation-play-state: paused; }
+    .marquee span { padding: 1.1rem 2.2rem; font-family: var(--serif); font-size: clamp(1.4rem, 2.6vw, 2rem); white-space: nowrap; color: var(--ink-2); }
+    .marquee span::after { content: ""; display: inline-block; width: .32em; height: .32em; margin-left: 4.4rem; border-radius: 50%; background: var(--accent); vertical-align: middle; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* How it works: steps scroll, the screen beside them stays put */
+    .how { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(2rem, 6vw, 6rem); margin-top: clamp(2.5rem, 5vw, 4rem); }
+    .step { min-height: 62vh; padding: 2rem 0; border-top: 1px solid var(--line); opacity: .38; transition: opacity .5s var(--ease); }
+    .step:last-child { min-height: 46vh; }
+    .step.is-active { opacity: 1; }
+    .step .n { font-family: var(--serif); font-size: 1.6rem; color: var(--accent); }
+    .step h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 3.6vw, 2.8rem); line-height: 1.05; margin-top: .3rem; }
+    .stage { position: sticky; top: 6rem; align-self: start; height: min(36rem, calc(100vh - 8rem)); border-radius: 1.2rem; background: var(--night); color: var(--night-text); overflow: hidden; }
+    .scene { position: absolute; inset: 0; padding: 1.4rem 1.5rem; opacity: 0; transform: translateY(16px) scale(.98); transition: opacity .55s var(--ease), transform .7s var(--ease); font: .86rem/1.7 var(--mono); }
+    .scene.is-active { opacity: 1; transform: none; }
+    .scene .dim { color: var(--night-muted); }
+    .scene .hot { color: #f0773f; }
+    .scene .ok { color: #8fd3a6; }
+    .scene-bar { display: flex; gap: .4rem; margin: -.4rem 0 1rem; }
+    .scene-bar i { width: .65rem; height: .65rem; border-radius: 50%; background: #3d382f; }
+    .scene-phone { display: grid; grid-template-columns: 12.5rem minmax(0, 1fr); gap: 1.4rem; align-items: start; font-family: var(--sans); }
+    .mini-phone { position: relative; padding: .45rem; border-radius: 1.4rem; background: #0b0a08; border: 1px solid var(--night-line); }
+    .mini-phone img { border-radius: 1rem; }
+    .tap { position: absolute; left: 38%; top: 36%; width: 2.4rem; height: 2.4rem; margin: -1.2rem 0 0 -1.2rem; border-radius: 50%; border: 2px solid #f0773f; opacity: 0; }
+    .scene.is-active .tap { animation: tap 2.4s var(--ease) .8s infinite; }
+    @keyframes tap { 0% { transform: scale(.3); opacity: 0; } 20% { opacity: 1; } 60%, 100% { transform: scale(1.6); opacity: 0; } }
+    .calls div { padding: .35rem 0; border-bottom: 1px solid var(--night-line); font: .82rem var(--mono); opacity: 0; transform: translateX(10px); transition: opacity .4s, transform .5s var(--ease); }
+    .scene.is-active .calls div { opacity: 1; transform: none; }
+    .scene.is-active .calls div:nth-child(2) { transition-delay: .25s; } .scene.is-active .calls div:nth-child(3) { transition-delay: .5s; } .scene.is-active .calls div:nth-child(4) { transition-delay: .75s; } .scene.is-active .calls div:nth-child(5) { transition-delay: 1s; }
+
+    /* Uses: rows that open up on hover */
+    .uses { margin-top: clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--line); }
+    .use { display: grid; grid-template-columns: 4rem minmax(0, 1.1fr) minmax(0, 1fr) 2rem; gap: 1.5rem; align-items: baseline; padding: 1.6rem 0; border-top: 1px solid var(--line); transition: padding .5s var(--ease), background .4s; }
+    .use .n { font-family: var(--serif); color: var(--ink-3); font-size: 1.2rem; }
+    .use h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.05; transition: transform .5s var(--ease), color .3s; }
+    .use p { margin: 0; }
+    .use .go { justify-self: end; font-size: 1.3rem; color: var(--accent); opacity: 0; transform: translateX(-10px); transition: opacity .3s, transform .5s var(--ease); }
+    .use:hover { padding-block: 2.1rem; }
+    .use:hover h3 { transform: translateX(.6rem); color: var(--accent); }
+    .use:hover .go { opacity: 1; transform: none; }
+    .tools-note { margin-top: 1.5rem; font-size: .95rem; }
+
+    /* Pro */
+    #pro { background: var(--night); color: var(--night-text); border-top: 0; }
+    #pro p { color: var(--night-muted); }
+    #pro .kicker { color: var(--night-muted); }
+    #pro h2 em { color: #f0773f; }
+    .pro-intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 2rem 5rem; align-items: end; }
+    .pro-intro .lede { color: var(--night-muted); }
+    .try { display: flex; align-items: center; gap: .8rem; margin: clamp(2.5rem, 5vw, 3.5rem) 0 1rem; color: var(--night-text); font-weight: 600; }
+    .try::before { content: ""; width: .6rem; height: .6rem; border-radius: 50%; background: #f0773f; box-shadow: 0 0 0 .3rem #f0773f33; animation: ping 1.8s ease-in-out infinite; }
+    @keyframes ping { 50% { box-shadow: 0 0 0 .6rem #f0773f00; } }
+    .planned { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 3rem; margin-top: clamp(3rem, 6vw, 4.5rem); }
+    .planned div { padding: 1.4rem 0; border-top: 1px solid var(--night-line); }
+    .planned h3 { display: flex; justify-content: space-between; gap: 1rem; color: var(--night-text); }
+    .planned h3 small { font: 600 .7rem var(--sans); letter-spacing: .06em; text-transform: uppercase; color: #f0773f; padding-top: .3rem; }
+    .planned p { font-size: .95rem; margin-top: .4rem; }
+    .pro-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: clamp(3rem, 6vw, 4.5rem); padding-top: 2rem; border-top: 1px solid var(--night-line); }
+    .pro-cta p { margin: 0; color: var(--night-text) !important; font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.1; }
+    .pro-cta .btn { background: #f0773f; border-color: #f0773f; color: #1b120c; }
+    .pro-cta .btn::before { background: var(--night-text); }
+
+    /* Plans */
+    .plans { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 2rem 5rem; align-items: start; }
+    table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+    th, td { padding: 1rem .5rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    thead th { font-weight: 600; color: var(--ink-3); font-size: .9rem; }
+    thead th:last-child { color: var(--accent); }
+    tbody th { font-weight: 600; }
+    td { color: var(--ink-2); }
+    tbody tr { transition: background .3s; }
+    tbody tr:hover { background: var(--card); }
+
+    /* Waitlist */
+    #waitlist { background: var(--paper-2); }
+    .signup-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem 5rem; align-items: end; }
+    .perks { list-style: none; margin: 1.4rem 0 0; padding: 0; }
+    .perks li { padding: .55rem 0; border-top: 1px solid var(--line-2); color: var(--ink); }
+    .perks li::before { content: "→ "; color: var(--accent); }
+    .signup-card { position: relative; }
+    fieldset { border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+    label { display: block; margin-bottom: .6rem; font-weight: 600; }
+    .form-row { display: flex; gap: .6rem; }
+    input[type="email"] { flex: 1; min-width: 0; min-height: 3.2rem; padding: .7rem 1.2rem; border: 1px solid var(--line-2); border-radius: 99rem; background: var(--card); color: var(--ink); font: inherit; transition: border-color .2s, box-shadow .2s; }
+    input[type="email"]:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 4px #17140f14; }
+    input[aria-invalid="true"] { border-color: #c2412b; }
+    fieldset:disabled .btn { opacity: .5; cursor: not-allowed; }
+    .status { display: flex; align-items: flex-start; gap: .5rem; margin: 1rem 0 0; font-size: .92rem; color: var(--ink-2); }
+    .status::before { content: ""; flex: none; margin-top: .45em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--ink-3); }
+    .status.is-open::before { background: var(--green); }
+    .status.is-error { color: #a63520; }
+    .status.is-error::before { background: #c2412b; }
+    .fine { font-size: .88rem; margin-top: .6rem; }
+    .trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+    /* FAQ */
+    .faq-grid { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: 2rem 5rem; }
+    details.qa { border-top: 1px solid var(--line); }
+    details.qa:last-child { border-bottom: 1px solid var(--line); }
+    details.qa summary { display: flex; justify-content: space-between; gap: 1rem; padding: 1.2rem 0; cursor: pointer; list-style: none; font-weight: 600; font-size: 1.08rem; transition: color .2s; }
+    details.qa summary::-webkit-details-marker { display: none; }
+    details.qa summary::after { content: "+"; font-family: var(--serif); font-size: 1.6rem; line-height: .9; color: var(--accent); transition: transform .4s var(--ease); }
+    details.qa[open] summary::after { transform: rotate(45deg); }
+    details.qa summary:hover { color: var(--accent); }
+    details.qa > p, details.qa > ul { margin: 0 0 1.3rem; color: var(--ink-2); }
+    details.qa ul { padding-left: 1.2rem; }
+    .text-link { color: var(--accent); font-weight: 600; }
+
+    @media (max-width: 60rem) {
+      .hero-row, .how, .pro-intro, .plans, .signup-grid, .faq-grid { grid-template-columns: minmax(0, 1fr); }
+      .stage { display: none; }
+      .step { min-height: 0; opacity: 1; }
+      .planned { grid-template-columns: 1fr 1fr; }
+      .use { grid-template-columns: 2.5rem minmax(0, 1fr); }
+      .use p { grid-column: 2; }
+      .use .go { display: none; }
+    }
+    @media (max-width: 44rem) {
+      .planned { grid-template-columns: 1fr; }
+      .form-row { flex-direction: column; }
+      .install-box .tabs { display: flex; width: 100%; }
+      .install-box .tabs [role="tab"] { flex: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) { .marquee { animation: none; } .reel-frame { transform: none; } }
+  </style>
+</head>
+<body>
+  <a class="skip btn" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="./" aria-label="TapHerd home"><span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>TapHerd</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#how">How it works</a>
+        <a href="docs.html">Install guide</a>
+        <a href="#pro">Pro</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://github.com/GreenPeaas/tapherd">GitHub</a>
+      </nav>
+      <a class="btn small" href="#waitlist">Pro waitlist</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="headline">
+      <div class="wrap">
+        <h1 id="headline" data-split>Your AI can now use <em>Android apps.</em></h1>
+        <div class="hero-row">
+          <div class="reveal">
+            <p class="lede">Control your phones and emulators from Codex, Claude, or Cursor. Post to TikTok, Reels and Shorts in one prompt. Free for up to 3 devices.</p>
+            <p style="font-size:.95rem">Built for developers and technical creators. You need a computer with an Android emulator or an Android phone.</p>
+          </div>
+          <div class="install-box reveal" style="--d:.1s">
+            <div class="tabs" role="tablist" aria-label="Your computer">
+              <button type="button" role="tab" data-os-tab="mac" aria-selected="true">macOS · Linux</button>
+              <button type="button" role="tab" data-os-tab="windows" aria-selected="false">Windows</button>
+            </div>
+            <div class="code" data-os="mac"><pre><code>curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh</code></pre></div>
+            <div class="code" data-os="windows" hidden><pre><code>irm https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.ps1 | iex</code></pre></div>
+            <div class="install-links">
+              <a class="link" href="docs.html">Step-by-step guide</a>
+              <a class="link" href="docs.html#emulator">Get a free Android emulator</a>
+              <a class="link" href="https://github.com/GreenPeaas/tapherd">Source on GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <figure class="reel reveal" aria-labelledby="reel-title">
+          <div class="reel-frame" data-parallax>
+            <img src="assets/demo-poster.jpg" data-loop="assets/loops/post-everywhere.webp" width="1280" height="720" fetchpriority="high"
+                 alt="Recording: one prompt posts a scheduled video from a Pixel emulator to YouTube Shorts (Private), TikTok (Only you), and Instagram Reels, then deletes the copy from the phone.">
+          </div>
+          <figcaption>
+            <span><b id="reel-title">Real screen recording, sped up.</b> One prompt, one Pixel emulator, three platforms, 2026-11-19. Account names are blurred.</span>
+            <details>
+              <summary>What happens in the recording</summary>
+              <ol>
+                <li>The scheduled post is a TapHerd demo video, due today.</li>
+                <li>The prompt “Post my scheduled demo video now on all platforms, write the captions and tags.” goes to Claude Code.</li>
+                <li>Using TapHerd, the agent copies the video from the computer to the phone and opens each app.</li>
+                <li>It writes a caption and tags for each platform, sets YouTube Shorts to Private and TikTok to Only you, and posts a public Instagram Reel.</li>
+                <li>It deletes its copy of the video from the phone's storage.</li>
+              </ol>
+            </details>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="clients" aria-label="Works with Codex, Claude Code, Claude Desktop, Cursor, and any MCP client">
+        <div class="marquee" aria-hidden="true">
+          <span>Codex</span><span>Claude Code</span><span>Claude Desktop</span><span>Cursor</span><span>Any MCP client</span><span>Emulators</span><span>Your own phones</span>
+          <span>Codex</span><span>Claude Code</span><span>Claude Desktop</span><span>Cursor</span><span>Any MCP client</span><span>Emulators</span><span>Your own phones</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="kicker">How it works</div>
+        <h2 id="how-title" data-split>Three steps, <em>about five minutes.</em></h2>
+        <div class="how">
+          <div>
+            <article class="step is-active" data-scene="0">
+              <span class="n">01</span>
+              <h3>Install it</h3>
+              <p>One line sets up TapHerd for your user and checks for Android's <code>adb</code> tool. It asks before anything that needs admin rights.</p>
+              <div class="code" data-os="mac"><pre><code>curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh</code></pre></div>
+              <div class="code" data-os="windows" hidden><pre><code>irm https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.ps1 | iex</code></pre></div>
+              <p>No phone yet? <a class="link" href="docs.html#emulator">Install a free Pixel emulator</a> first.</p>
+            </article>
+            <article class="step" data-scene="1">
+              <span class="n">02</span>
+              <h3>Connect your AI</h3>
+              <p>TapHerd prints the exact settings for your AI app and tells you where to paste them. Also <code>codex</code>, <code>claude-desktop</code>, and <code>cursor</code>.</p>
+              <div class="code"><pre><code>tapherd config mcp --client claude-code &gt; .mcp.json</code></pre></div>
+              <p><a class="link" href="docs.html#connect">Steps for each AI app</a></p>
+            </article>
+            <article class="step" data-scene="2">
+              <span class="n">03</span>
+              <h3>Ask it to do the work</h3>
+              <p>Your AI sees each screen, taps, types, and reports back.</p>
+              <div class="code"><pre class="wrap-lines"><code>Use TapHerd to open Settings on my phone, tap Network &amp; internet, and tell me what opened.</code></pre></div>
+            </article>
+          </div>
+          <div class="stage" aria-hidden="true">
+            <div class="scene is-active">
+              <div class="scene-bar"><i></i><i></i><i></i></div>
+              <div><span class="hot">$</span> curl -LsSf …/install.sh | sh</div>
+              <div class="dim">==&gt; Checking for uv … installed</div>
+              <div class="dim">==&gt; Checking for adb … installed</div>
+              <div class="dim">==&gt; Installing TapHerd … done</div>
+              <div class="dim">==&gt; Running tapherd doctor</div>
+              <div>Android Debug Bridge version 1.0.41</div>
+              <div class="ok">Active and online: emulator-5554</div>
+              <div>TapHerd Free supports up to 3 active devices.</div>
+            </div>
+            <div class="scene">
+              <div class="scene-bar"><i></i><i></i><i></i></div>
+              <div><span class="hot">$</span> tapherd config mcp --client claude-code</div>
+              <div class="dim">{</div>
+              <div class="dim">&nbsp;&nbsp;"mcpServers": {</div>
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;"tapherd": {</div>
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type": "stdio",</div>
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"command": "…/tapherd/bin/python",</div>
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"args": ["-m", "tapherd.mcp_server"]</div>
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+              <div class="dim">&nbsp;&nbsp;}</div>
+              <div class="dim">}</div>
+              <div class="ok" style="margin-top:1rem">Save it as .mcp.json, start claude, approve tapherd.</div>
+            </div>
+            <div class="scene">
+              <div class="scene-bar"><i></i><i></i><i></i></div>
+              <div class="scene-phone">
+                <div class="mini-phone"><img src="assets/pixel-1.png" width="720" height="1600" loading="lazy" alt=""><span class="tap"></span></div>
+                <div class="calls">
+                  <div><span class="hot">●</span> list_devices → emulator-5554</div>
+                  <div><span class="hot">●</span> open_app settings → ok</div>
+                  <div><span class="hot">●</span> read_screen → “Network &amp; internet”</div>
+                  <div><span class="hot">●</span> tap → ok</div>
+                  <div class="ok">Network &amp; internet is open. Internet shows Connected.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="uses" aria-labelledby="uses-title">
+      <div class="wrap">
+        <div class="kicker">Uses</div>
+        <h2 id="uses-title" data-split>What people use it <em>for.</em></h2>
+        <div class="uses">
+          <div class="use reveal"><span class="n">i.</span><h3>Posting</h3><p>Post to TikTok, Reels and Shorts from your own phones, with captions your AI writes. The same tools work in other apps, such as X and YouTube.</p><span class="go" aria-hidden="true">→</span></div>
+          <div class="use reveal"><span class="n">ii.</span><h3>QA testing</h3><p>Let an agent walk through your Android app on several emulators at once and report what broke.</p><span class="go" aria-hidden="true">→</span></div>
+          <div class="use reveal"><span class="n">iii.</span><h3>Store screenshots</h3><p>Capture the same screens on several devices for your app store listing.</p><span class="go" aria-hidden="true">→</span></div>
+          <div class="use reveal"><span class="n">iv.</span><h3>Mobile-only apps</h3><p>Use apps that have no web or API version.</p><span class="go" aria-hidden="true">→</span></div>
+          <div class="use reveal"><span class="n">v.</span><h3>Your own analytics</h3><p>Read numbers from your own accounts' in-app dashboards.</p><span class="go" aria-hidden="true">→</span></div>
+        </div>
+        <p class="tools-note">Your AI gets 15 tools, including <code>read_screen</code>, <code>tap</code>, <code>type_text</code>, <code>open_app_many</code>, <code>push_media</code>, and <code>remove_media</code>. <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/TOOLS.md">All tools</a></p>
+      </div>
+    </section>
+
+    <section class="section" id="pro" aria-labelledby="pro-title">
+      <div class="wrap">
+        <div class="kicker">TapHerd Pro · in development</div>
+        <div class="pro-intro">
+          <h2 id="pro-title" data-split>One dashboard for <em>every phone you run.</em></h2>
+          <p class="lede reveal">Free gets your AI onto three phones. Pro is for creators and teams who run many more: every phone live in your browser, posts scheduled across all of them, and an assistant that knows your devices.</p>
+        </div>
+        <p class="try reveal">Try the concept. Click around; everything is simulated.</p>
+        <div id="pro-app" class="reveal" role="region" aria-label="Interactive concept of the planned Pro dashboard">
+          <noscript><p style="padding:2rem">The interactive concept needs JavaScript.</p></noscript>
+        </div>
+        <div class="planned">
+          <div class="reveal"><h3>Every phone, live <small>Planned</small></h3><p>All your emulators, phones and cloud devices in one dashboard, grouped the way you work.</p></div>
+          <div class="reveal" style="--d:.08s"><h3>Browser control <small>Planned</small></h3><p>Click to tap, scroll to swipe, type from your keyboard. Do it once, mirror it to a group.</p></div>
+          <div class="reveal" style="--d:.16s"><h3>Scheduled posting <small>Planned</small></h3><p>Plan the week across every phone. Drag to reschedule; each phone posts on its own.</p></div>
+          <div class="reveal"><h3>Built-in assistant <small>Planned</small></h3><p>Ask in plain English. It plans posts, drafts captions, and fills the schedule.</p></div>
+          <div class="reveal" style="--d:.08s"><h3>Maintained recipes <small>Planned</small></h3><p>Posting recipes kept current as apps change, with a clean handoff when a screen is new.</p></div>
+          <div class="reveal" style="--d:.16s"><h3>50+ devices <small>Planned</small></h3><p>Past Free's three. Team seats, run history, and alerts when a phone needs you.</p></div>
+        </div>
+        <div class="pro-cta reveal">
+          <p>Founder pricing for everyone<br>on the waitlist.</p>
+          <a class="btn" href="#waitlist">Join the waitlist <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="plans" aria-labelledby="plans-title">
+      <div class="wrap plans">
+        <div>
+          <div class="kicker">Plans</div>
+          <h2 id="plans-title" data-split>Free <em>&amp;</em> Pro</h2>
+          <p class="reveal">The local connector is free and MIT-licensed. Pro is coming for creators and teams who post across more phones.</p>
+          <p class="reveal"><a class="btn ghost" href="docs.html">Install the free version <span class="arrow" aria-hidden="true">→</span></a></p>
+        </div>
+        <table class="reveal" aria-label="TapHerd Free and Pro">
+          <thead><tr><th scope="col">Feature</th><th scope="col">Free</th><th scope="col">Pro · coming soon</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Active devices</th><td>Up to 3</td><td>50+</td></tr>
+            <tr><th scope="row">AI control of Android apps</th><td>Yes</td><td>Yes</td></tr>
+            <tr><th scope="row">Posting recipes</th><td>1 unverified sample</td><td>Maintained recipe library</td></tr>
+            <tr><th scope="row">Scheduling</th><td>Run on demand</td><td>Scheduled posting</td></tr>
+            <tr><th scope="row">Dashboard &amp; browser control</th><td>—</td><td>Planned</td></tr>
+            <tr><th scope="row">Built-in assistant</th><td>Use your own AI client</td><td>Planned</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="waitlist" aria-labelledby="waitlist-title">
+      <div class="wrap signup-grid">
+        <div>
+          <div class="kicker">Pro waitlist</div>
+          <h2 id="waitlist-title" data-split>Be first <em>in line.</em></h2>
+          <ul class="perks reveal">
+            <li>Founder pricing</li>
+            <li>Early access before the public launch</li>
+            <li>A say in which features ship first</li>
+          </ul>
+        </div>
+        <form class="signup-card reveal" id="signup" novalidate data-supabase-url="https://kfushwgzvxiiphskfmlf.supabase.co" data-supabase-key="sb_publishable_4z8Fhjkbh_qctrmUBguv-A_b-ykOpY3">
+          <fieldset id="signup-fields" disabled>
+            <label for="email">Email address</label>
+            <div class="form-row">
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="you@example.com" aria-describedby="signup-status signup-consent" required>
+              <button class="btn" id="signup-button" type="submit">Join waitlist</button>
+            </div>
+            <div class="trap" aria-hidden="true">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" tabindex="-1" autocomplete="off">
+            </div>
+          </fieldset>
+          <p class="status" id="signup-status" data-signup-status role="status" aria-live="polite">Email signup opens once the signup endpoint is configured.</p>
+          <p class="fine" id="signup-consent">We'll email you about TapHerd Pro. Unsubscribe anytime. <a class="text-link" href="privacy.html">Privacy</a></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap faq-grid">
+        <div>
+          <div class="kicker">FAQ</div>
+          <h2 id="faq-title" data-split>Questions, <em>answered.</em></h2>
+        </div>
+        <div>
+        <details class="qa">
+          <summary>Why not Buffer or Postiz?</summary>
+          <p>Scheduling tools can only do what each platform's API allows. For example, TikTok's posting API keeps posts private until an app passes TikTok's audit, and Instagram's API only supports Professional accounts. TapHerd works through the app itself, on your own phone.</p>
+        </details>
+        <details class="qa">
+          <summary>Is my data sent anywhere?</summary>
+          <p>The free version runs entirely on your machine and has no telemetry. Your Android apps and your AI client handle their own network requests. <a class="text-link" href="privacy.html">Privacy</a></p>
+        </details>
+        <details class="qa">
+          <summary>Will this get my accounts banned?</summary>
+          <p>Platforms set their own rules. You're responsible for following them; see Acceptable Use. TapHerd only automates posting to accounts you own.</p>
+        </details>
+        <details class="qa">
+          <summary>Does it work on Windows?</summary>
+          <p>Yes, in beta. The automated tests pass on Windows, and there's an installer. Real-device testing on Windows is still to come. <a class="text-link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/SETUP_WINDOWS.md">Windows setup guide</a></p>
+        </details>
+        <details class="qa">
+          <summary>Is it a phone farm tool?</summary>
+          <p>No. TapHerd doesn't create accounts or automate engagement. It helps you operate your own devices and accounts with AI.</p>
+        </details>
+        <details class="qa">
+          <summary>Does it work on iPhone?</summary>
+          <p>No. TapHerd is Android only. iOS doesn't allow this kind of control.</p>
+        </details>
+        <details class="qa">
+          <summary>How do I get the Android emulators?</summary>
+          <p>They're free from Google. Install Android Studio, open Device Manager, and create a Pixel device with a Google Play system image. <a class="text-link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/SETUP_MAC.md#download-the-android-emulator">Setup guide</a></p>
+        </details>
+        <details class="qa" id="acceptable-use">
+          <summary>What can I automate?</summary>
+          <p>Post to accounts you own, test your own apps, and use your own devices. TapHerd's recipes and scheduler only support posting. Generic controls are subject to the acceptable use policy.</p>
+          <ul>
+            <li>Don't create, register, or verify accounts.</li>
+            <li>Don't automate likes, follows, comments, direct messages, views, or other engagement.</li>
+            <li>Don't scrape other people's data or solve CAPTCHAs.</li>
+            <li>Don't spoof device fingerprints, evade emulator detection, rotate proxies, or hide automation.</li>
+          </ul>
+        </details>
+        <details class="qa">
+          <summary>Is it open source? What will Pro cost?</summary>
+          <p>The free connector is MIT-licensed. Pro pricing isn't set yet. People on the waitlist get founder pricing.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <a class="brand" href="./" aria-label="TapHerd home"><span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>TapHerd</a>
+        <nav class="footer-links" aria-label="Footer">
+          <a class="link" href="docs.html">Install guide</a>
+          <a class="link" href="https://github.com/GreenPeaas/tapherd">GitHub</a>
+          <a class="link" href="https://github.com/GreenPeaas/tapherd#docs">Docs</a>
+          <a class="link" id="policy-link" href="#acceptable-use">Acceptable use</a>
+          <a class="link" href="privacy.html">Privacy</a>
+          <a class="link" href="#waitlist">Pro waitlist</a>
+        </nav>
+      </div>
+      <p class="disclaimer">TapHerd is not affiliated with or endorsed by TikTok, Meta, Google, or X. All trademarks belong to their owners.</p>
+    </div>
+  </footer>
+
+  <script src="assets/site.js"></script>
+  <script src="assets/pro-demo.js"></script>
+  <script>
+    // How it works: the step nearest the middle of the screen drives the scene beside it.
+    const steps = [...document.querySelectorAll(".step")];
+    const scenes = [...document.querySelectorAll(".scene")];
+    const showScene = (i) => {
+      steps.forEach((s, j) => s.classList.toggle("is-active", j === i));
+      scenes.forEach((s, j) => s.classList.toggle("is-active", j === i));
+    };
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        for (const entry of entries) if (entry.isIntersecting) showScene(Number(entry.target.dataset.scene));
+      }, { rootMargin: "-45% 0px -45% 0px" });
+      for (const step of steps) io.observe(step);
+    }
+
+    // Waitlist signups go to a Supabase table once its URL and publishable key are set.
+    // The same email rules are enforced by the database (supabase/migrations).
+    const EMAIL = /^[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$/;
+    const validEmail = (value) =>
+      value.length >= 6 && value.length <= 254 && EMAIL.test(value) &&
+      !value.includes("..") && !value.startsWith(".") && !value.includes(".@");
+
+    const signup = document.querySelector("#signup");
+    const emailInput = document.querySelector("#email");
+    const signupButton = document.querySelector("#signup-button");
+    const formStatus = document.querySelector("#signup-status");
+    const setStatus = (text, state = "") => {
+      formStatus.textContent = text;
+      formStatus.classList.toggle("is-open", state === "ok");
+      formStatus.classList.toggle("is-error", state === "error");
+    };
+
+    const waitlist = (() => {
+      const { supabaseUrl: url, supabaseKey: key } = signup.dataset;
+      if (!url || !key) return null;
+      try {
+        const base = new URL(url);
+        const local = base.protocol === "http:" && ["127.0.0.1", "localhost"].includes(base.hostname);
+        if ((base.protocol === "https:" || local) && !base.username && !base.password) {
+          return { endpoint: new URL("/rest/v1/waitlist", base).href, key };
+        }
+      } catch {
+        // Leave signup disabled until a valid Supabase URL is configured.
+      }
+      return null;
+    })();
+
+    if (waitlist) {
+      document.querySelector("#signup-fields").disabled = false;
+      for (const status of document.querySelectorAll("[data-signup-status]")) {
+        status.textContent = "Email signup is open.";
+        status.classList.add("is-open");
+      }
+    }
+
+    signup.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!waitlist) return;
+      const email = emailInput.value.trim().toLowerCase();
+      if (!validEmail(email)) {
+        emailInput.setAttribute("aria-invalid", "true");
+        setStatus("Enter a valid email address, like name@example.com.", "error");
+        emailInput.focus();
+        return;
+      }
+      emailInput.removeAttribute("aria-invalid");
+      const joined = () => {
+        signup.reset();
+        setStatus("You're on the list. We'll email you when early access opens.", "ok");
+      };
+      // Bots fill the hidden field. Thank them without saving anything.
+      if (document.querySelector("#company").value) return joined();
+
+      signupButton.disabled = true;
+      setStatus("Adding you to the list…");
+      const headers = { apikey: waitlist.key, "Content-Type": "application/json", Prefer: "return=minimal" };
+      if (waitlist.key.startsWith("eyJ")) headers.Authorization = `Bearer ${waitlist.key}`;
+      try {
+        const response = await fetch(waitlist.endpoint, {
+          method: "POST",
+          headers,
+          body: JSON.stringify({ email, source: "site" }),
+        });
+        // 409 means the address is already on the list. Treat it the same way.
+        if (response.ok || response.status === 409) {
+          joined();
+        } else if (response.status === 400) {
+          setStatus("That email address doesn't look valid. Check it and try again.", "error");
+        } else {
+          setStatus("Signup isn't working right now. Please try again in a few minutes.", "error");
+        }
+      } catch {
+        setStatus("Couldn't reach the waitlist. Check your connection and try again.", "error");
+      } finally {
+        signupButton.disabled = false;
+      }
+    });
+
+    const policy = document.querySelector("#acceptable-use");
+    const openPolicy = () => { if (location.hash === "#acceptable-use") policy.open = true; };
+    window.addEventListener("hashchange", openPolicy);
+    document.querySelector("#policy-link").addEventListener("click", () => { policy.open = true; });
+    openPolicy();
+  </script>
+</body>
+</html>

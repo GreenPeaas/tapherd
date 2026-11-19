@@ -1,0 +1,32 @@
+name: Recipe request
+description: Ask for a posting recipe for an app, or report one that broke.
+labels: [recipe-broken]
+body:
+  - type: input
+    id: app
+    attributes:
+      label: App package and version
+      placeholder: com.zhiliaoapp.musically 47.7.3
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Request type
+      options: [New posting recipe, Existing recipe stopped working]
+    validations:
+      required: true
+  - type: textarea
+    id: flow
+    attributes:
+      label: What should the recipe post, and where did it stop?
+      description: For a broken recipe, include the failed step and reason from the needs_ai result. Remove account names from screenshots.
+    validations:
+      required: true
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Acceptable use
+      options:
+        - label: The recipe posts content to accounts I own. TapHerd recipes only support posting.
+          required: true

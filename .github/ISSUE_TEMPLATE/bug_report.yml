@@ -1,0 +1,51 @@
+name: Bug report
+description: Something in TapHerd doesn't work as documented.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for the report. Please remove emails, phone numbers, account names, and API keys from anything you paste.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: The commands you ran or the prompt you gave your AI client.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options: [macOS, Windows, Linux]
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `tapherd doctor` and `tapherd --version`
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device type
+      options: [Android Studio emulator, Real phone, Cloud phone]
+    validations:
+      required: true
+  - type: input
+    id: app
+    attributes:
+      label: App and app version (if an app was involved)
+      placeholder: com.google.android.youtube 21.45.88
+  - type: input
+    id: client
+    attributes:
+      label: AI client
+      placeholder: Codex, Claude Code, Claude Desktop, Cursor, …

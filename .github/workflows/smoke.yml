@@ -1,0 +1,57 @@
+name: Post-publish smoke test
+
+# Run this within 10 minutes of publishing. It installs TapHerd from PyPI (or
+# TestPyPI) in a clean environment on each operating system and runs the CLI.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: TapHerd version to install, for example 0.1.0
+        required: true
+      index:
+        description: Package index
+        type: choice
+        options: [pypi, testpypi]
+        default: pypi
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHONUTF8: "1"
+      TAPHERD_NO_TEASE: "1"
+    steps:
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          python-version: "3.12"
+      - name: Install TapHerd from the package index
+        shell: bash
+        run: |
+          if [ "${{ inputs.index }}" = "testpypi" ]; then
+            uv tool install "tapherd==${{ inputs.version }}" \
+              --exclude-newer-package tapherd=false \
+              --default-index https://test.pypi.org/simple/ \
+              --index https://pypi.org/simple/ --index-strategy unsafe-best-match
+          else
+            # A release minutes old is skipped by uv's default safety delay unless exempted.
+            uv tool install "tapherd==${{ inputs.version }}" --exclude-newer-package tapherd=false
+          fi
+      - name: Run the installed CLI
+        shell: bash
+        run: |
+          tapherd --version | tee version.txt
+          grep -q "${{ inputs.version }}" version.txt
+          tapherd --help
+          tapherd config mcp --client codex
+          tapherd recipes
+      - name: Run doctor (expected to report that no device is attached)
+        shell: bash
+        run: tapherd doctor || echo "doctor exited $? (no ADB or device on the runner is expected)"

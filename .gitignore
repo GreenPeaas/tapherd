@@ -1,0 +1,22 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+/.venv
+/venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+# Never commit videos, logs, or local TapHerd output: they can show account names.
+*.mp4
+*.mov
+*.jsonl
+logs/
+runs/
+screenshots/
+.tapherd/
+/supabase/.temp/

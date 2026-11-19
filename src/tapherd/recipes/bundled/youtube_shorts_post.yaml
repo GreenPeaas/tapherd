@@ -1,0 +1,140 @@
+app_package: com.google.android.youtube
+tested_app_version: null
+tested_on: null
+tested_device: null
+status: unverified
+params:
+  video_path:
+    type: video
+    description: Path to a local vertical or square test video.
+  title:
+    description: Exact title for this Short.
+    max_length: 100
+  description:
+    description: Optional description to enter when the editor exposes the field.
+    default: ""
+  visibility:
+    type: choice
+    choices: [private, unlisted, public]
+    default: private
+    description: Visibility that must be confirmed on the upload screen.
+steps:
+  - id: allow_media
+    type: prepare_app
+  - id: open_youtube
+    type: open_app
+  - id: wait_for_create
+    type: wait_for
+    timeout: 8
+    selector: {content_desc: Create}
+    fallbacks:
+      - {text: Create}
+  - id: copy_video
+    type: push_media
+    path: "{{ video_path }}"
+  - id: open_create
+    type: tap
+    selector: {content_desc: Create}
+    fallbacks:
+      - {text: Create}
+  - id: wait_for_upload_menu
+    type: wait_for
+    selector: {text: Upload a video}
+    fallbacks:
+      - {content_desc: Upload a video}
+  - id: open_gallery
+    type: tap
+    selector: {text: Upload a video}
+    fallbacks:
+      - {content_desc: Upload a video}
+  - id: select_exact_video
+    type: choose_media
+    timeout: 10
+  - id: wait_for_trim_editor
+    type: wait_for
+    selector: {text: Next}
+    fallbacks:
+      - {content_desc: Next}
+  - id: finish_trim
+    type: tap
+    selector: {text: Next}
+    fallbacks:
+      - {content_desc: Next}
+  - id: wait_for_shorts_editor
+    type: wait_for
+    selector: {text: Next}
+    fallbacks:
+      - {content_desc: Next}
+  - id: continue_to_details
+    type: tap
+    selector: {text: Next}
+    fallbacks:
+      - {content_desc: Next}
+  - id: wait_for_title
+    type: wait_for
+    selector: {text: Add a title}
+    fallbacks:
+      - {content_desc: Add a title}
+      - {text: Caption your Short}
+  - id: focus_title
+    type: tap
+    selector: {text: Add a title}
+    fallbacks:
+      - {content_desc: Add a title}
+      - {text: Caption your Short}
+  - id: enter_title
+    type: type
+    text: "{{ title }}"
+  - id: verify_title
+    type: assert
+    selector: {text: "{{ title }}"}
+  - id: focus_description
+    type: tap
+    when_param: description
+    selector: {text: Add description}
+    fallbacks:
+      - {content_desc: Add description}
+  - id: enter_description
+    type: type
+    when_param: description
+    text: "{{ description }}"
+  - id: verify_description
+    type: assert
+    when_param: description
+    selector: {text: "{{ description }}"}
+  - id: open_visibility
+    type: tap
+    selector: {text: Visibility}
+    fallbacks:
+      - {content_desc: Visibility}
+      - {regex: "(?i)^Visibility[ ,:]+(Public|Unlisted|Private)$"}
+  - id: wait_for_visibility
+    type: wait_for
+    selector: {regex: "(?i)^{{ visibility }}$"}
+  - id: choose_visibility
+    type: tap
+    selector: {regex: "(?i)^{{ visibility }}$"}
+  - id: save_visibility
+    type: tap
+    selector: {text: Done}
+    fallbacks:
+      - {text: Save}
+      - {content_desc: Done}
+  - id: upload_short
+    type: tap
+    publish: true
+    selector: {text: Upload Short}
+    fallbacks:
+      - {content_desc: Upload Short}
+    require:
+      - {text: "{{ title }}"}
+      - {regex: "(?i)^Visibility[ ,:\n]+{{ visibility }}$"}
+      - {regex: "(?i)^(?:Audience[ ,:]+)?(?:Yes, it's made for kids|No, it's not made for kids)$"}
+  - id: confirm_upload
+    type: wait_for
+    timeout: 30
+    selector: {text: Short uploaded}
+    fallbacks:
+      - {text: Upload complete}
+  - id: capture_confirmation
+    type: screenshot

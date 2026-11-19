@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy — TapHerd</title>
+  <meta name="description" content="What TapHerd's website and free connector collect, and how to delete your waitlist email.">
+  <meta name="theme-color" content="#f3efe6">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%2310131c%22/%3E%3Crect x=%226%22 y=%229%22 width=%225%22 height=%2214%22 rx=%221.5%22 fill=%22none%22 stroke=%22%23ffc075%22 stroke-width=%222%22/%3E%3Crect x=%2213.5%22 y=%227%22 width=%225%22 height=%2218%22 rx=%221.5%22 fill=%22%23ffc075%22/%3E%3Crect x=%2221%22 y=%229%22 width=%225%22 height=%2214%22 rx=%221.5%22 fill=%22none%22 stroke=%22%23ffc075%22 stroke-width=%222%22/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    main { padding-block: 3rem 5rem; }
+    main h1 { font-size: clamp(3rem, 8vw, 5.5rem); margin-top: 1rem; }
+    main h2 { font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin: 2.8rem 0 .4rem; }
+    main ul { color: var(--ink-2); padding-left: 1.2rem; }
+    main li { margin-top: .4rem; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; font-size: .95rem; }
+    th, td { text-align: left; vertical-align: top; padding: .8rem .6rem .8rem 0; border-top: 1px solid var(--line); }
+    td { color: var(--ink-2); }
+    .updated { font-size: .9rem; color: var(--ink-3); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="./" aria-label="TapHerd home"><span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>TapHerd</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="docs.html">Install guide</a>
+        <a href="./#pro">Pro</a>
+        <a href="https://github.com/GreenPeaas/tapherd">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap narrow">
+    <h1>Privacy</h1>
+    <p class="updated">Last updated 2026-11-19</p>
+
+    <h2>The short version</h2>
+    <p>The free TapHerd connector runs on your computer and collects nothing. This website stores your email only if you join the Pro waitlist. It uses cookieless analytics if they're turned on. Demo videos are served from this site; nothing loads from video services.</p>
+
+    <h2>What we collect</h2>
+    <table>
+      <thead><tr><th scope="col">What</th><th scope="col">When</th><th scope="col">Where it's kept</th></tr></thead>
+      <tbody>
+        <tr><td>Your email address and the date you signed up</td><td>Only if you join the Pro waitlist</td><td>A private table in our Supabase project. Visitors can add an address but can't read the list.</td></tr>
+        <tr><td>Anonymous page-view counts (pages, referrers, country, browser type)</td><td>When cookieless analytics are turned on for this site</td><td>Cloudflare Web Analytics. No cookies, no fingerprinting, and no tracking across sites.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What we don't collect</h2>
+    <ul>
+      <li>The free connector has no telemetry. Your screenshots, device data, and optional action logs stay on your computer.</li>
+      <li>TapHerd never asks for, stores, or sees your social media passwords. You sign in to apps on your own device.</li>
+      <li>The website has no advertising trackers and sets no cookies.</li>
+    </ul>
+
+    <h2>How we use your email</h2>
+    <p>We use it only to email you about TapHerd Pro: early access, the founder offer, and an occasional product update. Every email has an unsubscribe link. We don't sell or share your email.</p>
+
+    <h2>Delete your email</h2>
+    <p>Use the unsubscribe link in any email, or write to <a class="link" href="mailto:support@tapherd.info">support@tapherd.info</a> from that address and ask us to delete it. We'll remove it from the waitlist within 30 days and confirm by email.</p>
+
+    <h2>Questions</h2>
+    <p>Email <a class="link" href="mailto:support@tapherd.info">support@tapherd.info</a>. For security issues, see <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/SECURITY.md#report-a-vulnerability">how to report a vulnerability</a>.</p>
+
+    <p class="updated">TapHerd is not affiliated with or endorsed by TikTok, Meta, Google, or X. All trademarks belong to their owners.</p>
+  </main>
+  <script src="assets/site.js"></script>
+</body>
+</html>

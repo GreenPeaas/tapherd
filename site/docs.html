@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Install guide — TapHerd</title>
+  <meta name="description" content="Step-by-step guide: install the free Android emulator, install TapHerd on macOS, Windows, or Linux, connect Codex, Claude, or Cursor, and make your first AI-controlled tap.">
+  <meta name="theme-color" content="#f3efe6">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%2317140f%22/%3E%3Crect x=%226%22 y=%229%22 width=%225%22 height=%2214%22 rx=%221.5%22 fill=%22none%22 stroke=%22%23f0773f%22 stroke-width=%222%22/%3E%3Crect x=%2213.5%22 y=%227%22 width=%225%22 height=%2218%22 rx=%221.5%22 fill=%22%23f0773f%22/%3E%3Crect x=%2221%22 y=%229%22 width=%225%22 height=%2214%22 rx=%221.5%22 fill=%22none%22 stroke=%22%23f0773f%22 stroke-width=%222%22/%3E%3C/svg%3E">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="TapHerd">
+  <meta property="og:title" content="TapHerd install guide">
+  <meta property="og:description" content="From zero to your AI tapping on an Android phone, step by step.">
+  <meta property="og:url" content="https://tapherd.info/docs.html">
+  <meta property="og:image" content="https://tapherd.info/assets/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="tapherd-analytics-token" content="473c99589e29480c9ef3950345945847">
+  <link rel="preload" href="assets/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem clamp(2rem, 6vw, 6rem); align-items: end; padding-block: clamp(3.5rem, 8vw, 6rem) clamp(2.5rem, 5vw, 4rem); }
+    .intro h1 { font-size: clamp(3rem, 7.5vw, 6.4rem); }
+    .facts { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.4rem 0 0; padding: 0; list-style: none; }
+    .facts li { padding: .3rem .8rem; border: 1px solid var(--line-2); border-radius: 99rem; font-size: .88rem; color: var(--ink-2); }
+    .term { border-radius: 1.1rem; background: var(--night); color: var(--night-text); overflow: hidden; box-shadow: 0 2rem 4rem -2rem #3a2a1a66; }
+    .term-bar { display: flex; align-items: center; gap: .4rem; padding: .7rem 1rem; border-bottom: 1px solid var(--night-line); color: var(--night-muted); font: .78rem var(--mono); }
+    .term-bar i { width: .65rem; height: .65rem; border-radius: 50%; background: #3d382f; }
+    .term-bar i:last-of-type { margin-right: .5rem; }
+    .term-body { height: 20rem; padding: 1rem 1.1rem; overflow: hidden; font: .82rem/1.65 var(--mono); white-space: pre-wrap; word-break: break-word; }
+    .term-body .p { color: #f0773f; } .term-body .o { color: var(--night-muted); } .term-body .ok { color: #8fd3a6; } .term-body .ai { color: #a8c4ee; }
+    .caret { display: inline-block; width: .55em; height: 1.1em; vertical-align: text-bottom; background: #f0773f; animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .picker { position: sticky; top: 0; z-index: 9; border-block: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 90%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .picker .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; padding-block: .6rem; }
+    .picker-label { color: var(--ink-3); font-size: .92rem; }
+    .progress { flex: 1; min-width: 6rem; height: 2px; background: var(--line); }
+    .progress span { display: block; height: 100%; width: 0; background: var(--accent); }
+
+    .layout { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); padding-block: 3rem 5rem; }
+    .toc { position: sticky; top: 5rem; align-self: start; }
+    .toc ol { list-style: none; margin: 0; padding: 0; }
+    .toc a { display: flex; gap: .7rem; padding: .45rem 0; color: var(--ink-3); text-decoration: none; font-size: .95rem; transition: color .25s, transform .4s var(--ease); }
+    .toc a span { font-family: var(--serif); width: 1.4rem; }
+    .toc a:hover { color: var(--ink); transform: translateX(3px); }
+    .toc a.is-active { color: var(--accent); font-weight: 600; }
+
+    .step { padding-bottom: clamp(3.5rem, 7vw, 5.5rem); }
+    .step + .step { padding-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--line); }
+    .step-head { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+    .step-num { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 3.6rem); line-height: 1; color: var(--accent); }
+    .step h2 { font-size: clamp(2.2rem, 4.4vw, 3.4rem); }
+    .time { font-size: .85rem; color: var(--ink-3); }
+    .step > p { max-width: 62ch; }
+    .step h3 { margin-top: 2rem; }
+    .cards-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.4rem; }
+    .card { padding: 1.3rem 1.4rem 1.4rem; border: 1px solid var(--line); border-radius: .9rem; background: var(--card); transition: transform .4s var(--ease), border-color .3s, box-shadow .4s var(--ease); }
+    .card:hover { transform: translateY(-3px); border-color: var(--line-2); box-shadow: 0 1rem 2rem -1.2rem #3a2a1a44; }
+    .card > :first-child { margin-top: 0; }
+    .card h3 { margin-top: 0; }
+    ol.steps, ul.list { margin: .7rem 0 0; padding-left: 1.3rem; color: var(--ink-2); }
+    ol.steps li, ul.list li { margin-top: .5rem; padding-left: .2rem; }
+    ol.steps li::marker { color: var(--accent); font-weight: 700; }
+    .tip { margin-top: 1.2rem; padding: .9rem 1.1rem; border-left: 2px solid var(--accent); background: var(--card); border-radius: 0 .6rem .6rem 0; font-size: .97rem; color: var(--ink-2); }
+    .tip.warn { border-left-color: #c2412b; }
+    .expect { margin-top: 1.2rem; padding: .9rem 1.1rem; border: 1px solid #2f7a4f55; border-radius: .6rem; background: #2f7a4f0f; color: var(--ink); }
+    .expect::before { content: "✓"; margin-right: .55rem; color: var(--green); font-weight: 800; }
+    .subtabs { margin-top: 1.3rem; }
+    .reqs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.4rem; }
+    .reqs div { padding-top: .9rem; border-top: 2px solid var(--ink); }
+    .reqs b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.9rem; line-height: 1.1; }
+    .reqs span { font-size: .92rem; color: var(--ink-2); }
+    .pro-strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.4rem; padding: 1.3rem 1.5rem; border-radius: .9rem; background: var(--night); color: var(--night-text); }
+    .pro-strip p { margin: 0; color: var(--night-text); }
+    .pro-strip .btn { background: #f0773f; border-color: #f0773f; color: #1b120c; }
+    .pro-strip .btn::before { background: var(--night-text); }
+    details.more { margin-top: 1.2rem; border: 1px solid var(--line); border-radius: .9rem; background: var(--card); padding: 0 1.3rem; }
+    details.more summary { padding: 1rem 0; cursor: pointer; font-weight: 600; }
+    details.more[open] { padding-bottom: 1.3rem; }
+
+    @media (max-width: 60rem) {
+      .intro, .layout { grid-template-columns: minmax(0, 1fr); }
+      .toc { display: none; }
+    }
+    @media (max-width: 44rem) {
+      .cards-2, .reqs { grid-template-columns: minmax(0, 1fr); }
+      .term-body { height: 17rem; font-size: .76rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip btn" href="#guide">Skip to the guide</a>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="./" aria-label="TapHerd home"><span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>TapHerd</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="./#how">How it works</a>
+        <a href="docs.html" aria-current="page">Install guide</a>
+        <a href="./#pro">Pro</a>
+        <a href="https://github.com/GreenPeaas/tapherd">GitHub</a>
+      </nav>
+      <a class="btn small" href="./#waitlist">Pro waitlist</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap intro" aria-labelledby="title">
+      <div>
+        <div class="kicker">Install guide</div>
+        <h1 id="title" data-split>From zero to your first <em>AI tap.</em></h1>
+        <p class="lede reveal">Seven steps. Most people finish in 15 to 30 minutes, mostly waiting for the emulator to download. You don't need to know Python or Android.</p>
+        <ul class="facts reveal" aria-label="Support">
+          <li>macOS · tested</li><li>Windows · beta</li><li>Linux · beta</li><li>Free, up to 3 devices</li>
+        </ul>
+      </div>
+      <div class="term reveal" style="--d:.15s" aria-hidden="true">
+        <div class="term-bar"><i></i><i></i><i></i>the whole guide, in 40 seconds</div>
+        <div class="term-body" id="term"></div>
+      </div>
+    </section>
+
+    <div class="picker">
+      <div class="wrap">
+        <span class="picker-label" id="os-label">Your computer</span>
+        <div class="tabs" role="tablist" aria-labelledby="os-label">
+          <button type="button" role="tab" data-os-tab="mac" aria-selected="true">macOS</button>
+          <button type="button" role="tab" data-os-tab="windows" aria-selected="false">Windows</button>
+          <button type="button" role="tab" data-os-tab="linux" aria-selected="false">Linux</button>
+        </div>
+        <div class="progress" role="progressbar" aria-label="Guide progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress"></span></div>
+      </div>
+    </div>
+
+    <div class="wrap layout" id="guide">
+      <nav class="toc" aria-label="Steps">
+        <ol>
+          <li><a href="#emulator"><span>1</span>Install the emulator</a></li>
+          <li><a href="#install"><span>2</span>Install TapHerd</a></li>
+          <li><a href="#check"><span>3</span>Check everything</a></li>
+          <li><a href="#connect"><span>4</span>Connect your AI</a></li>
+          <li><a href="#first-tap"><span>5</span>Your first AI tap</a></li>
+          <li><a href="#post"><span>6</span>Post a video</a></li>
+          <li><a href="#more"><span>7</span>Add more phones</a></li>
+          <li><a href="#help"><span>?</span>If something's wrong</a></li>
+        </ol>
+      </nav>
+
+      <div>
+        <!-- 1 -->
+        <section class="step" id="emulator" aria-labelledby="emulator-title">
+          <div class="step-head reveal"><span class="step-num">1</span><h2 id="emulator-title">Install the Android emulator</h2><span class="time">10–20 min</span></div>
+          <p class="reveal">TapHerd controls any Android device your computer can reach with Android's <code>adb</code> tool. The easiest is Google's free Pixel emulator, which comes with Android Studio. Already have an Android phone? You can <a class="link" href="#phone">use it instead</a>.</p>
+
+          <div class="reqs reveal">
+            <div><b>15 GB</b><span>free disk space for Android Studio and one system image</span></div>
+            <div><b>8 GB</b><span>of RAM, or 16 GB to run two or three emulators</span></div>
+            <div><b>Virtualization</b><span><span data-os="mac">Built in on every Mac</span><span data-os="windows" hidden>Turned on in BIOS (VT-x or AMD-V)</span><span data-os="linux" hidden>KVM available at <code>/dev/kvm</code></span></span></div>
+          </div>
+
+          <div class="tabs subtabs reveal" role="tablist" aria-label="How to install the emulator">
+            <button type="button" role="tab" id="tab-studio" aria-controls="panel-studio" aria-selected="true">Android Studio (recommended)</button>
+            <button type="button" role="tab" id="tab-cli" aria-controls="panel-cli" aria-selected="false" tabindex="-1">Command line</button>
+          </div>
+
+          <div id="panel-studio" role="tabpanel" aria-labelledby="tab-studio">
+            <div data-os="windows" hidden class="tip warn"><strong>First, turn on virtualization.</strong> Restart into your BIOS or UEFI and enable <strong>Intel VT-x</strong> or <strong>AMD-V</strong> (sometimes called SVM). Back in Windows, open <strong>Turn Windows features on or off</strong>, tick <strong>Windows Hypervisor Platform</strong>, and restart.</div>
+            <div data-os="linux" hidden class="tip warn"><strong>First, check KVM.</strong> The emulator is unusably slow without it.
+              <div class="code"><pre><code>ls -l /dev/kvm                 # should exist
+sudo usermod -aG kvm "$USER"   # then log out and back in</code></pre></div>
+            </div>
+            <ol class="steps">
+              <li><strong>Download Android Studio</strong> from <a class="link" href="https://developer.android.com/studio">developer.android.com/studio</a>.
+                <span data-os="mac">Pick <strong>Mac with Apple chip</strong> (M1 or later) or <strong>Mac with Intel chip</strong>. Open the <code>.dmg</code> and drag Android Studio into Applications.</span>
+                <span data-os="windows" hidden>Run the <code>.exe</code> installer and keep the default components, including <strong>Android Virtual Device</strong>.</span>
+                <span data-os="linux" hidden>Extract the <code>.tar.gz</code>, for example into <code>~/android-studio</code>, and run <code>bin/studio.sh</code>.</span>
+              </li>
+              <li><strong>Run the setup wizard.</strong> Choose <strong>Standard</strong>, accept the licenses, and let it download the Android SDK, the emulator, and Platform-Tools (which includes <code>adb</code>).</li>
+              <li><strong>Open Device Manager.</strong> On the welcome screen, click <strong>More Actions → Virtual Device Manager</strong>.</li>
+              <li><strong>Create a device.</strong> Click <strong>+</strong> → <strong>Create Virtual Device</strong> and pick a <strong>Pixel</strong> phone that shows the Play Store icon.</li>
+              <li><strong>Pick a system image.</strong> Choose a <strong>Google Play</strong> image at API 34 or later.
+                <span data-os="mac">On Apple chips, the architecture must be <code>arm64-v8a</code>. On Intel Macs, use <code>x86_64</code>.</span>
+                <span data-os="windows" hidden>Use <code>x86_64</code>. On Arm laptops (Snapdragon), use <code>arm64-v8a</code>.</span>
+                <span data-os="linux" hidden>Use <code>x86_64</code> on Intel and AMD, or <code>arm64-v8a</code> on Arm.</span>
+                Click the download arrow next to it and wait.</li>
+              <li><strong>Name it and start it.</strong> Call it <code>TapHerd_Pixel_1</code>, finish, and press the <strong>Run</strong> (play) button. The first boot takes a minute or two.</li>
+              <li><strong>Sign in to the Play Store</strong> on the emulator if you want to install apps like TikTok, Instagram, or YouTube. Settings, Chrome, and Maps work without signing in.</li>
+            </ol>
+          </div>
+
+          <div id="panel-cli" role="tabpanel" aria-labelledby="tab-cli" hidden>
+            <p>For people who'd rather not install Android Studio. Android Studio is the path we test; these commands follow Google's documented tools but haven't been run end to end by us on every system yet.</p>
+            <div data-os="mac">
+              <div class="code"><pre><code>brew install --cask temurin android-commandlinetools
+export ANDROID_HOME=/opt/homebrew/share/android-commandlinetools
+yes | sdkmanager --licenses
+sdkmanager "platform-tools" "emulator" "system-images;android-34;google_apis_playstore;arm64-v8a"
+avdmanager create avd -n TapHerd_Pixel_1 -d pixel_7 \
+  -k "system-images;android-34;google_apis_playstore;arm64-v8a"
+"$ANDROID_HOME/emulator/emulator" -avd TapHerd_Pixel_1 &amp;</code></pre></div>
+              <p>On an Intel Mac, replace <code>arm64-v8a</code> with <code>x86_64</code> in both places, and <code>/opt/homebrew</code> with <code>/usr/local</code>.</p>
+            </div>
+            <div data-os="windows" hidden>
+              <ol class="steps">
+                <li>Install Java with <code>winget install EclipseAdoptium.Temurin.17.JDK</code>.</li>
+                <li>Download <strong>Command line tools only</strong> for Windows from <a class="link" href="https://developer.android.com/studio#command-line-tools-only">developer.android.com/studio</a>. Unzip it so the folder is <code>%LOCALAPPDATA%\Android\Sdk\cmdline-tools\latest</code>.</li>
+                <li>In a new PowerShell window:</li>
+              </ol>
+              <div class="code"><pre><code>$env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
+$tools = "$env:ANDROID_HOME\cmdline-tools\latest\bin"
+&amp; "$tools\sdkmanager.bat" --licenses
+&amp; "$tools\sdkmanager.bat" "platform-tools" "emulator" "system-images;android-34;google_apis_playstore;x86_64"
+&amp; "$tools\avdmanager.bat" create avd -n TapHerd_Pixel_1 -d pixel_7 -k "system-images;android-34;google_apis_playstore;x86_64"
+&amp; "$env:ANDROID_HOME\emulator\emulator.exe" -avd TapHerd_Pixel_1</code></pre></div>
+            </div>
+            <div data-os="linux" hidden>
+              <ol class="steps">
+                <li>Install Java: <code>sudo apt install openjdk-17-jre-headless</code> (Fedora: <code>sudo dnf install java-17-openjdk-headless</code>).</li>
+                <li>Download <strong>Command line tools only</strong> for Linux from <a class="link" href="https://developer.android.com/studio#command-line-tools-only">developer.android.com/studio</a> and unzip it so the folder is <code>~/Android/Sdk/cmdline-tools/latest</code>.</li>
+              </ol>
+              <div class="code"><pre><code>export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+yes | sdkmanager --licenses
+sdkmanager "platform-tools" "emulator" "system-images;android-34;google_apis_playstore;x86_64"
+avdmanager create avd -n TapHerd_Pixel_1 -d pixel_7 \
+  -k "system-images;android-34;google_apis_playstore;x86_64"
+"$ANDROID_HOME/emulator/emulator" -avd TapHerd_Pixel_1 &amp;</code></pre></div>
+            </div>
+          </div>
+
+          <h3 class="reveal">Check the emulator is visible</h3>
+          <p>Once the home screen shows, run:</p>
+          <div class="code"><pre><code>adb devices -l</code></pre></div>
+          <p class="expect">You see a line like <code>emulator-5554  device  product:sdk_gphone64_arm64 …</code></p>
+          <p class="tip"><code>adb</code> not found? The TapHerd installer in step 2 offers to install it, or add Android's <code>platform-tools</code> folder to your PATH<span data-os="mac"> (<code>~/Library/Android/sdk/platform-tools</code>)</span><span data-os="windows" hidden> (<code>%LOCALAPPDATA%\Android\Sdk\platform-tools</code>)</span><span data-os="linux" hidden> (<code>~/Android/Sdk/platform-tools</code>)</span>.</p>
+
+          <details class="more">
+            <summary>Run two or three emulators at once</summary>
+            <p>In Device Manager, create <code>TapHerd_Pixel_2</code> and <code>TapHerd_Pixel_3</code> with the same phone and image, and press each one's <strong>Run</strong> (play) button. Or start them from a terminal:</p>
+            <div class="code" data-os="mac"><pre><code>SDK="$HOME/Library/Android/sdk"
+"$SDK/emulator/emulator" -avd TapHerd_Pixel_1 &amp;
+"$SDK/emulator/emulator" -avd TapHerd_Pixel_2 &amp;</code></pre></div>
+            <div class="code" data-os="windows" hidden><pre><code>$sdk = "$env:LOCALAPPDATA\Android\Sdk"
+Start-Process "$sdk\emulator\emulator.exe" "-avd TapHerd_Pixel_1"
+Start-Process "$sdk\emulator\emulator.exe" "-avd TapHerd_Pixel_2"</code></pre></div>
+            <div class="code" data-os="linux" hidden><pre><code>SDK="$HOME/Android/Sdk"
+"$SDK/emulator/emulator" -avd TapHerd_Pixel_1 &amp;
+"$SDK/emulator/emulator" -avd TapHerd_Pixel_2 &amp;</code></pre></div>
+            <p>Each needs about 4 GB of memory. If your computer slows down, run two.</p>
+          </details>
+
+          <details class="more" id="phone">
+            <summary>Use your own Android phone instead</summary>
+            <ol class="steps">
+              <li>Open <strong>Settings → About phone</strong> and tap <strong>Build number</strong> seven times.</li>
+              <li>Open <strong>Settings → System → Developer options</strong> and turn on <strong>USB debugging</strong>.</li>
+              <li>Connect it with a data cable (some cables only charge), unlock it, and accept <strong>Allow USB debugging</strong>. Tick <strong>Always allow</strong>.</li>
+            </ol>
+            <p data-os="windows" hidden class="tip">Most phones need their maker's USB driver on Windows. Pixel phones use the Google USB Driver from Android Studio's SDK Manager.</p>
+            <p data-os="linux" hidden class="tip">If <code>adb</code> says permission denied, add a udev rule. <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/SETUP_LINUX.md#let-adb-reach-a-usb-phone">How</a></p>
+          </details>
+        </section>
+
+        <!-- 2 -->
+        <section class="step" id="install" aria-labelledby="install-title">
+          <div class="step-head reveal"><span class="step-num">2</span><h2 id="install-title">Install TapHerd</h2><span class="time">1–2 min</span></div>
+          <div data-os="mac">
+            <p>Open <strong>Terminal</strong> (press <kbd>⌘</kbd> <kbd>Space</kbd>, type Terminal) and paste:</p>
+            <div class="code"><pre><code>curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh</code></pre></div>
+          </div>
+          <div data-os="windows" hidden>
+            <p>Open <strong>PowerShell</strong> from the Start menu. You don't need administrator rights. Paste:</p>
+            <div class="code"><pre><code>irm https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.ps1 | iex</code></pre></div>
+          </div>
+          <div data-os="linux" hidden>
+            <p>Open a terminal and paste:</p>
+            <div class="code"><pre><code>curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh</code></pre></div>
+          </div>
+          <p>The installer:</p>
+          <ul class="list">
+            <li>Installs <strong>uv</strong>, a Python tool manager, for your user only.</li>
+            <li>Checks for <code>adb</code>. If it's missing, it shows the install command and asks first.<span data-os="linux" hidden> Linux package managers need <code>sudo</code>; it explains why before asking.</span></li>
+            <li>Installs TapHerd from PyPI and runs <code>tapherd doctor</code>.</li>
+          </ul>
+          <details class="more">
+            <summary>Prefer to install by hand?</summary>
+            <p>Install <a class="link" href="https://docs.astral.sh/uv/getting-started/installation/">uv</a>, then:</p>
+            <div class="code"><pre><code>uv tool install tapherd
+tapherd doctor</code></pre></div>
+            <p>If uv says TapHerd wasn't found right after a release, use <code>uv tool install --exclude-newer-package tapherd=false tapherd</code>. Recent uv versions wait a few days before installing new uploads.</p>
+          </details>
+          <p class="tip">Open a <strong>new</strong> terminal window afterwards so the <code>tapherd</code> command is found.</p>
+        </section>
+
+        <!-- 3 -->
+        <section class="step" id="check" aria-labelledby="check-title">
+          <div class="step-head reveal"><span class="step-num">3</span><h2 id="check-title">Check everything</h2><span class="time">30 sec</span></div>
+          <p>With the emulator or phone on, run:</p>
+          <div class="code"><pre><code>tapherd doctor</code></pre></div>
+          <p>You should see something like this. Your serials may differ.</p>
+          <div class="code" data-no-copy><pre><code><span class="out">Python 3.11.18
+Android Debug Bridge version 1.0.41
+Active and online: emulator-5554
+TapHerd Free supports up to 3 active devices and 3 concurrent operations.
+Ready. Next, connect your AI: tapherd config mcp --client claude-code (or codex, claude-desktop, cursor).</span></code></pre></div>
+          <p class="tip warn">If doctor says <strong>no device</strong>, <strong>unauthorized</strong>, or <strong>offline</strong>, it prints the next command to run. The <a class="link" href="#help">fixes are below</a>.</p>
+        </section>
+
+        <!-- 4 -->
+        <section class="step" id="connect" aria-labelledby="connect-title">
+          <div class="step-head reveal"><span class="step-num">4</span><h2 id="connect-title">Connect your AI</h2><span class="time">2 min</span></div>
+          <p>TapHerd prints the exact settings for your AI app, then tells you where to paste them. Pick your app:</p>
+          <div class="tabs subtabs" role="tablist" aria-label="AI app">
+            <button type="button" role="tab" id="tab-claude-code" aria-controls="panel-claude-code" aria-selected="true">Claude Code</button>
+            <button type="button" role="tab" id="tab-claude-desktop" aria-controls="panel-claude-desktop" aria-selected="false" tabindex="-1">Claude Desktop</button>
+            <button type="button" role="tab" id="tab-codex" aria-controls="panel-codex" aria-selected="false" tabindex="-1">Codex</button>
+            <button type="button" role="tab" id="tab-cursor" aria-controls="panel-cursor" aria-selected="false" tabindex="-1">Cursor</button>
+          </div>
+          <div class="card" style="margin-top:1rem" role="tabpanel" id="panel-claude-code" aria-labelledby="tab-claude-code">
+            <ol class="steps">
+              <li>In your project folder, save the settings as <code>.mcp.json</code>:
+                <div class="code"><pre><code>tapherd config mcp --client claude-code &gt; .mcp.json</code></pre></div></li>
+              <li>Start <code>claude</code> in that folder and approve the <strong>tapherd</strong> server when asked.</li>
+              <li>Type <code>/mcp</code> to check it shows as connected.</li>
+            </ol>
+          </div>
+          <div class="card" style="margin-top:1rem" role="tabpanel" id="panel-claude-desktop" aria-labelledby="tab-claude-desktop" hidden>
+            <ol class="steps">
+              <li>Print the settings:
+                <div class="code"><pre><code>tapherd config mcp --client claude-desktop</code></pre></div></li>
+              <li>In Claude Desktop, open <strong>Settings → Developer → Edit Config</strong>. That opens
+                <span data-os="mac"><code>~/Library/Application Support/Claude/claude_desktop_config.json</code>.</span>
+                <span data-os="windows" hidden><code>%APPDATA%\Claude\claude_desktop_config.json</code>.</span>
+                <span data-os="linux" hidden>nothing: Claude Desktop isn't available on Linux. Use Claude Code, Codex, or Cursor.</span></li>
+              <li>Add the <code>tapherd</code> entry inside <code>mcpServers</code>. If other servers are there, keep them.</li>
+              <li><strong>Quit</strong> Claude Desktop completely and open it again.</li>
+            </ol>
+          </div>
+          <div class="card" style="margin-top:1rem" role="tabpanel" id="panel-codex" aria-labelledby="tab-codex" hidden>
+            <ol class="steps">
+              <li>Print the settings:
+                <div class="code"><pre><code>tapherd config mcp --client codex</code></pre></div></li>
+              <li>Add the <code>[mcp_servers.tapherd]</code> block to
+                <span data-os="windows" hidden><code>%USERPROFILE%\.codex\config.toml</code>.</span>
+                <span data-os="mac"><code>~/.codex/config.toml</code>.</span>
+                <span data-os="linux" hidden><code>~/.codex/config.toml</code>.</span></li>
+              <li>Start a new Codex session.</li>
+            </ol>
+          </div>
+          <div class="card" style="margin-top:1rem" role="tabpanel" id="panel-cursor" aria-labelledby="tab-cursor" hidden>
+            <ol class="steps">
+              <li>Print the settings:
+                <div class="code"><pre><code>tapherd config mcp --client cursor</code></pre></div></li>
+              <li>Add the <code>tapherd</code> entry to
+                <span data-os="windows" hidden><code>%USERPROFILE%\.cursor\mcp.json</code></span>
+                <span data-os="mac"><code>~/.cursor/mcp.json</code></span>
+                <span data-os="linux" hidden><code>~/.cursor/mcp.json</code></span>
+                for every project, or <code>.cursor/mcp.json</code> for one.</li>
+              <li>Reload Cursor and check TapHerd is enabled in its MCP settings.</li>
+            </ol>
+          </div>
+          <p class="tip">Always paste what <strong>your</strong> <code>tapherd config mcp</code> prints. It points at the Python and <code>adb</code> on your computer. <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/CONNECT_YOUR_AI.md">All details</a></p>
+        </section>
+
+        <!-- 5 -->
+        <section class="step" id="first-tap" aria-labelledby="first-tap-title">
+          <div class="step-head reveal"><span class="step-num">5</span><h2 id="first-tap-title">Your first AI tap</h2><span class="time">1 min</span></div>
+          <p>Ask your AI:</p>
+          <div class="code"><pre class="wrap-lines"><code>Use TapHerd to list my devices. On the first one, open Settings, read the screen, tap Network &amp; internet, and tell me what opened.</code></pre></div>
+          <p class="expect">Settings opens on the device, then <strong>Network &amp; internet</strong>. Your AI tells you what it sees.</p>
+          <p>That's it. Your AI can now read the screen, tap, swipe, type, and open apps on your Android devices. <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/TOOLS.md">See all 15 tools</a></p>
+        </section>
+
+        <!-- 6 -->
+        <section class="step" id="post" aria-labelledby="post-title">
+          <div class="step-head reveal"><span class="step-num">6</span><h2 id="post-title">Post a video</h2><span class="time">optional</span></div>
+          <p>Once you're signed in to your own accounts on the device, your AI can post for you. TapHerd copies the video from your computer, gets the app ready, and cleans up afterwards.</p>
+          <ol class="steps">
+            <li>Put the video somewhere your AI can read, such as your project folder.</li>
+            <li>Ask your AI something like:
+              <div class="code"><pre class="wrap-lines"><code>Using TapHerd, copy launch.mp4 to my phone and post it to TikTok, Instagram Reels, and YouTube Shorts. Write a caption and tags for each. Keep the Short private. Delete the copy from the phone when you're done.</code></pre></div></li>
+            <li>Watch it work. It uses <code>push_media</code> to copy the file, <code>prepare_app</code> to allow photo access and turn off camera and microphone prompts, taps through each app, and finishes with <code>remove_media</code>.</li>
+          </ol>
+          <p class="tip">Start with private or "Only you" visibility while you try it. App screens change often, so your AI checks each screen before tapping. Only post to accounts you own. <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/ACCEPTABLE_USE.md">Acceptable use</a></p>
+        </section>
+
+        <!-- 7 -->
+        <section class="step" id="more" aria-labelledby="more-title">
+          <div class="step-head reveal"><span class="step-num">7</span><h2 id="more-title">Add more phones</h2><span class="time">optional</span></div>
+          <p>Free uses up to <strong>three</strong> devices at once. Start more emulators or plug in more phones, then:</p>
+          <div class="code"><pre><code>tapherd devices
+tapherd label emulator-5556 "Pixel 2" --group Creators
+tapherd use emulator-5556</code></pre></div>
+          <p>Then ask your AI to work across a group, like <em>“Open Settings on every phone in the Creators group.”</em></p>
+          <div class="pro-strip">
+            <p><strong style="color:inherit">Running more than three phones?</strong> Pro is planned for 50+ devices, a dashboard, and scheduled posting.</p>
+            <a class="btn" href="./#pro">Try the Pro concept <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </section>
+
+        <!-- Help -->
+        <section class="step" id="help" aria-labelledby="help-title">
+          <div class="step-head reveal"><span class="step-num">?</span><h2 id="help-title">If something's wrong</h2></div>
+          <div class="cards-2">
+            <div class="card"><h3>No device found</h3><p>Make sure the emulator shows its home screen, then run <code>adb devices -l</code>. You should see <code>emulator-5554  device</code>.</p></div>
+            <div class="card"><h3><code>unauthorized</code></h3><p>Unlock the phone and accept <strong>Allow USB debugging</strong>. No prompt? Run <code>adb kill-server</code>, then <code>adb devices</code>.</p></div>
+            <div class="card"><h3><code>offline</code></h3><p>Run <code>adb reconnect offline</code>, or restart the emulator from Device Manager.</p></div>
+            <div class="card"><h3>The emulator won't start</h3><p>Check the image architecture matches your computer, free up memory, or choose <strong>Cold Boot Now</strong> in Device Manager.</p></div>
+            <div class="card"><h3>My AI doesn't see TapHerd</h3><p>Check the file is valid JSON or TOML with no trailing commas, and fully restart the app. Claude Desktop must be quit, not just closed.</p></div>
+            <div class="card"><h3><code>tapherd</code>: command not found</h3><p>Open a new terminal. Still missing? Run <code>uv tool update-shell</code> and open another one.</p></div>
+          </div>
+          <p>More fixes are in <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/TROUBLESHOOTING.md">Troubleshooting</a>. Still stuck? <a class="link" href="https://github.com/GreenPeaas/tapherd/issues/new/choose">Open an issue</a> with the output of <code>tapherd doctor</code>, and remove any account names first.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <a class="brand" href="./" aria-label="TapHerd home"><span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>TapHerd</a>
+        <nav class="footer-links" aria-label="Footer">
+          <a class="link" href="./">Home</a>
+          <a class="link" href="https://github.com/GreenPeaas/tapherd">GitHub</a>
+          <a class="link" href="https://github.com/GreenPeaas/tapherd/blob/main/docs/ACCEPTABLE_USE.md">Acceptable use</a>
+          <a class="link" href="privacy.html">Privacy</a>
+          <a class="link" href="./#waitlist">Pro waitlist</a>
+        </nav>
+      </div>
+      <p class="disclaimer">TapHerd is not affiliated with or endorsed by TikTok, Meta, Google, or X. All trademarks belong to their owners.</p>
+    </div>
+  </footer>
+
+  <script src="assets/site.js"></script>
+  <script>
+    // Table of contents and progress follow the step in view.
+    const steps = [...document.querySelectorAll(".step")];
+    const tocLinks = new Map([...document.querySelectorAll(".toc a")].map((a) => [a.hash.slice(1), a]));
+    const progress = document.querySelector("#progress");
+    const onScroll = () => {
+      const mid = innerHeight * 0.35;
+      let current = steps[0];
+      for (const step of steps) if (step.getBoundingClientRect().top < mid) current = step;
+      for (const [id, link] of tocLinks) link.classList.toggle("is-active", id === current.id);
+      const guide = document.querySelector("#guide").getBoundingClientRect();
+      const pct = Math.max(0, Math.min(100, ((innerHeight * 0.5 - guide.top) / guide.height) * 100));
+      progress.style.width = `${pct}%`;
+      progress.parentElement.setAttribute("aria-valuenow", String(Math.round(pct)));
+    };
+    addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // Animated terminal: types the whole flow, then loops. Static when motion is reduced.
+    const term = document.querySelector("#term");
+    const SCRIPT = [
+      ["p", "$ ", "adb devices -l"],
+      ["ok", "", "emulator-5554  device  product:sdk_gphone64_arm64"],
+      ["p", "$ ", "curl -LsSf https://raw.githubusercontent.com/GreenPeaas/tapherd/main/scripts/install.sh | sh"],
+      ["o", "", "==> Checking for uv … installed\n==> Checking for adb … installed\n==> Installing TapHerd … done"],
+      ["p", "$ ", "tapherd config mcp --client claude-code > .mcp.json"],
+      ["p", "> ", "Open Settings on my phone and tap Network & internet."],
+      ["ai", "", "● list_devices → emulator-5554\n● open_app com.android.settings → ok\n● read_screen → found “Network & internet”\n● tap → ok\nNetwork & internet is open. Internet shows Connected."],
+    ];
+    const line = (cls, text) => { const s = document.createElement("span"); s.className = cls; s.textContent = text; return s; };
+    if (reduceMotion) {
+      for (const [cls, prefix, text] of SCRIPT) term.append(line(cls, prefix + text), "\n");
+    } else {
+      const caret = line("caret", "");
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      (async () => {
+        for (;;) {
+          term.replaceChildren(caret);
+          for (const [cls, prefix, text] of SCRIPT) {
+            const span = line(cls, prefix);
+            term.insertBefore(span, caret);
+            if (cls === "p") {
+              for (const ch of text) { span.textContent += ch; await sleep(text.length > 60 ? 12 : 36); }
+              await sleep(450);
+            } else {
+              span.textContent = "";
+              for (const row of text.split("\n")) { span.textContent += (span.textContent ? "\n" : "") + row; await sleep(360); }
+              await sleep(650);
+            }
+            term.insertBefore(document.createTextNode("\n"), caret);
+            term.scrollTop = term.scrollHeight;
+          }
+          await sleep(4000);
+        }
+      })();
+    }
+  </script>
+</body>
+</html>
